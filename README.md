@@ -1,0 +1,2 @@
+# sc-automation-core
+
