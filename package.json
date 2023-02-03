@@ -1,0 +1,17 @@
+{
+    "name": "ui-aumation-tests",
+    "version": "1.0.0",
+    "scripts": {
+        "pretest": "rimraf screenshots",
+        "test": "playwright test",
+        "update-snapshots": "playwright test --update-snapshots",
+        "report": "npx playwright show-report",
+        "create-test-image": "docker rmi test-playwright-docker:latest & docker build -t test-playwright-docker .",
+        "install-chromium": "npx playwright@1.24 install chromium"
+    },
+    "devDependencies": {
+        "@playwright/test": "1.24.0",
+        "rimraf": "3.0.2",
+        "notepack.io": "^3.0.1"
+    }
+}

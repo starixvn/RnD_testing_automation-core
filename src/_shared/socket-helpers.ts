@@ -1,0 +1,57 @@
+import type { WebSocket as PlaywrightWs } from "playwright-core";
+import { decode } from "notepack.io";
+import { decodeJson } from "./socket-parser";
+
+export async function waitForMessage(socket: PlaywrightWs, key: string, gameName: string, msgpack: boolean = false): Promise<any> {
+    let resolve: (payload: any) => any;
+
+    const promise = new Promise<any>((_resolve) => {
+        resolve = _resolve;
+    });
+
+    socket.on("framereceived", async (msg: any) => {
+        const { payload } = msg ?? "";
+        const jsonMsg = parseSocketPayload(payload, msgpack);
+
+        if (payload.includes(key) && jsonMsg.eventName?.toLocaleLowerCase() === gameName?.toLocaleLowerCase()) {
+            resolve(jsonMsg.message);
+        }
+    });
+
+    return promise;
+}
+
+export function parseSocketPayload(payload: string, msgpack: boolean = false): SocketPayload {
+    const packet = msgpack ? decode(payload) : decodeJson(payload);
+    const { data } = packet;
+
+    if (!data) {
+        return { eventName: "", message: "" };
+    }
+
+    if (data.length < 2) {
+        return {
+            eventName: data[0],
+            message: "",
+        };
+    }
+
+    return {
+        eventName: data[0],
+        message: data[1],
+    };
+}
+
+export function parseMsgpack(payload: string): SocketPayload {
+    const { data } = decode(payload);
+
+    return {
+        eventName: data[0],
+        message: data[1],
+    };
+}
+
+export type SocketPayload = {
+    eventName: string;
+    message: any;
+};
