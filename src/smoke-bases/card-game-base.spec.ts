@@ -7,7 +7,6 @@ export interface CardGameOptions extends IBaseOptions {
     placeBetAmount?: number;
 }
 
-//TODO shoud extend from GameBase
 export class CardGameBase {
     game: BaseGame;
     player: BasePlayer;

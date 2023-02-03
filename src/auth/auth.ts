@@ -1,5 +1,6 @@
 import { LobbyLocator, SITLocator, UATLocator, PRODLocator, GroupCurrencyLocator } from "./locators/index";
 import { configs } from "./configs/config";
+import { accounts } from "./accounts";
 import { Page } from "@playwright/test";
 
 export enum Environment {
@@ -16,13 +17,12 @@ export const ssoToGame = async (page: Page, gameId: number = 2): Promise<void> =
     const env = process.env.npm_config_env ?? Environment.LOCAL;
     const config = getConfig();
 
-    //TODO account could be params
-    if (config.gameAccounts[gameId] == null) {
+    if (accounts[gameId] == null) {
         throw new Error(`Missing test account for game id ${gameId}!!!`);
     }
 
     if (env.includes("local")) {
-        const memberId = config.gameAccounts[gameId][0];
+        const memberId = accounts[gameId][0];
         const memberSiteLink = `${config.memberSite}?obCustId=${memberId}&balance=20000`;
         await page.goto(memberSiteLink);
         const ssoLink = (await page.locator(LobbyLocator.ssoLink).textContent()) ?? "";
@@ -40,7 +40,7 @@ export const getConfig = (): any => {
 };
 
 const loginMemberSite = async (page: Page, config: any, env: string, gameId: number) => {
-    const accountId = config.gameAccounts[gameId][0];
+    const accountId = accounts[gameId][0];
 
     await page.goto(config.memberSite);
     await page.waitForLoadState("domcontentloaded", { timeout: 15000 });
