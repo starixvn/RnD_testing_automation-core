@@ -1,6 +1,5 @@
 import { LobbyLocator, SITLocator, UATLocator, PRODLocator, GroupCurrencyLocator } from "./locators/index";
 import { configs } from "./configs/config";
-import { accounts } from "./accounts";
 import { Page } from "@playwright/test";
 
 export enum Environment {
@@ -14,22 +13,23 @@ export enum Environment {
 }
 
 export const ssoToGame = async (page: Page, gameId: number = 2): Promise<void> => {
+    const playerId = process.env.TestAccount ?? "";
+    const productId = process.env.ProductId ?? "";
     const env = process.env.npm_config_env ?? Environment.LOCAL;
     const config = getConfig();
 
-    if (accounts[gameId] == null) {
-        throw new Error(`Missing test account for game id ${gameId}!!!`);
+    if (playerId === "" || productId === "") {
+        throw new Error(`Missing Test Account or ProductId for game id ${gameId}!!!`);
     }
 
     if (env.includes("local")) {
-        const memberId = accounts[gameId][0];
-        const memberSiteLink = `${config.memberSite}?obCustId=${memberId}&balance=20000`;
+        const memberSiteLink = `${config.memberSite}?obCustId=${playerId}&balance=20000`;
         await page.goto(memberSiteLink);
         const ssoLink = (await page.locator(LobbyLocator.ssoLink).textContent()) ?? "";
 
         await page.goto(`${ssoLink.replace("gameId=0", `gameId=${gameId}`)}`);
     } else {
-        await loginMemberSite(page, config, env, gameId);
+        await loginMemberSite(page, config, env, playerId, productId);
     }
 };
 
@@ -39,70 +39,74 @@ export const getConfig = (): any => {
     return configs[env];
 };
 
-const loginMemberSite = async (page: Page, config: any, env: string, gameId: number) => {
-    const accountId = accounts[gameId][0];
+const loginMemberSite = async (page: Page, config: any, env: string, playerId: string, productId: string) => {
+    const timeout = config.lobbyTimeout;
 
     await page.goto(config.memberSite);
-    await page.waitForLoadState("domcontentloaded", { timeout: 15000 });
+    await page.waitForLoadState("domcontentloaded", { timeout });
 
     switch (env) {
         case Environment.UAT:
-            await loginUAT(page, accountId, config.pwd);
+            await loginUAT(page, playerId, config.pwd, timeout);
             break;
 
         case Environment.PROD:
-            await loginPROD(page, accountId, config.pwd);
+            await loginPROD(page, playerId, config.pwd, timeout);
             break;
 
         default:
-            await loginSIT(page, accountId, config.pwd);
+            await loginSIT(page, playerId, config.pwd, timeout);
     }
 
-    await goToGameLobby(page, config, gameId);
+    await goToGameLobby(page, config, productId);
 
-    if (env !== Environment.SIT) {
-        await selectGroupCurrency(page, config.groupCurrencyId);
+    if (mustSelectCurrencyGroup(env)) {
+        await selectCurrencyGroup(page, config.groupCurrencyId, timeout);
     }
 };
 
-const formatGameLobbyUrl = (url: string, lobbyDomain: string, operatorGameType: number): string => {
-    return `${url.replace(/\/[Ss]ports/g, "").replace("demo:one23@", "")}${lobbyDomain}${operatorGameType}`;
-};
-
-const selectGroupCurrency = async (page: Page, groupCurrencyId: string) => {
+const selectCurrencyGroup = async (page: Page, groupCurrencyId: string, timeout: number = 15000) => {
     await page.selectOption(GroupCurrencyLocator.currencyGroupDropdown, { value: groupCurrencyId });
     await page.click(GroupCurrencyLocator.submitButton);
 
-    await page.waitForLoadState("domcontentloaded", { timeout: 15000 });
+    await page.waitForLoadState("domcontentloaded", { timeout });
 };
 
-const loginUAT = async (page: Page, accountId: string, pwd: string) => {
+const loginUAT = async (page: Page, playerId: string, pwd: string, timeout: number = 15000) => {
     await page.click(UATLocator.loginDiv);
     await page.selectOption(UATLocator.langDropdown, { value: UATLocator.vnLangOption });
-    await page.fill(UATLocator.memberIdInput, accountId);
+    await page.fill(UATLocator.memberIdInput, playerId);
     await page.fill(UATLocator.pwdInput, pwd);
     await page.click(UATLocator.loginButton);
-    await page.waitForLoadState("domcontentloaded", { timeout: 15000 });
+    await page.waitForLoadState("domcontentloaded", { timeout });
 };
 
-const loginPROD = async (page: Page, accountId: string, pwd: string) => {
+const loginPROD = async (page: Page, accountId: string, pwd: string, timeout: number = 15000) => {
     await page.fill(PRODLocator.memberIdInput, accountId);
     await page.fill(PRODLocator.pwdInput, pwd);
     await page.click(PRODLocator.loginButton);
     await page.waitForLoadState("domcontentloaded");
-    await page.waitForTimeout(15000); //hard sleep when running smoke-test on CI runner
+    await page.waitForTimeout(timeout); //hard sleep when running smoke-test on CI runner
 };
 
-const loginSIT = async (page: Page, accountId: string, pwd: string) => {
+const loginSIT = async (page: Page, accountId: string, pwd: string, timeout: number = 15000) => {
     await page.fill(SITLocator.memberIdInput, accountId);
     await page.fill(SITLocator.pwdInput, pwd);
     await page.click(SITLocator.loginButton);
-    await page.waitForLoadState("domcontentloaded", { timeout: 15000 });
+    await page.waitForLoadState("domcontentloaded", { timeout });
     await page.click(SITLocator.langDropdown);
     await page.click(SITLocator.vnLangOption);
 };
 
-const goToGameLobby = async (page: Page, config: any, gameId: number) => {
-    await page.goto(formatGameLobbyUrl(page.url(), config.lobbyDomain, config.mapGameId[gameId]));
-    await page.waitForLoadState("domcontentloaded", { timeout: 15000 });
+const goToGameLobby = async (page: Page, config: any, productId: string, timeout: number = 15000) => {
+    await page.goto(formatGameLobbyUrl(page.url(), config.lobbyDomain, productId));
+    await page.waitForLoadState("domcontentloaded", { timeout });
+};
+
+const formatGameLobbyUrl = (url: string, lobbyDomain: string, productId: string): string => {
+    return `${url.replace(/\/[Ss]ports/g, "").replace("demo:one23@", "")}${lobbyDomain}${productId}`;
+};
+
+const mustSelectCurrencyGroup = (env: string): boolean => {
+    return env !== Environment.SIT;
 };

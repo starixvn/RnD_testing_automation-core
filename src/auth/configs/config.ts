@@ -5,7 +5,6 @@ import local3 from "./config.local3";
 import sit from "./config.sit";
 import uat from "./config.uat";
 import prod from "./config.prod";
-import configLocal3 from "./config.local3";
 
 export const configs = {
     local: { ...local },
