@@ -7,9 +7,10 @@
         "declaration": true,
         "declarationMap": true,
         "resolveJsonModule": true,
-        "moduleResolution": "node",
-        "allowJs": true
+        "esModuleInterop": true,
+        "skipLibCheck": true
     },
+    "include": ["global.d.ts", "src/"],
     "exclude": ["tests/", "lib/", "node_modules/", "coverage/", "reports/"],
     "watchOptions": {
         "excludeDirectories": ["lib/*"]
