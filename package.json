@@ -6,6 +6,15 @@
     "license": "ISC",
     "main": "./lib/index.js",
     "typings": "./lib/index.d.ts",
+    "keywords": [
+        "automation",
+        "testing",
+        "sc-automation-core"
+    ],
+    "author": {
+        "email": "pentagon@luminetsoft.com",
+        "name": "pentagon"
+    },
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint . --fix  && prettier --write '{src}/**/*.ts'",
