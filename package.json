@@ -14,6 +14,7 @@
         "email": "pentagon@luminetsoft.com",
         "name": "pentagon"
     },
+    "type": "module",
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint . --fix  && prettier --write '{src}/**/*.ts'",
