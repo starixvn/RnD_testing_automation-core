@@ -1,9 +1,11 @@
 {
     "name": "sc-automation-core",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "The core of SC automation tests. Built with Playwright.",
     "type": "module",
     "license": "ISC",
+    "main": "./lib/index.js",
+    "typings": "./lib/index.d.ts",
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint . --fix  && prettier --write '{src}/**/*.ts'",
