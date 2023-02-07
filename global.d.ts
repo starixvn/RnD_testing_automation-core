@@ -7,6 +7,7 @@ declare global {
             toMatchBetOptions(b: Array<string>): R;
             toMatchWinning(b: any): R;
             toMatchWinningAndRefund(b: any): R;
+            toMatchWinningSlotsGame(b: any): R;
         }
     }
 }
