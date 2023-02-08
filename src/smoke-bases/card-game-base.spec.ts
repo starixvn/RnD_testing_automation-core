@@ -46,7 +46,6 @@ export class CardGameBase {
 
             // Act
             const placebetdeal = await this.player.placeBet(bet.choice, bet.amount);
-            const standresult = await this.player.standCard();
 
             // Assert
             expect(placebetdeal.deal.hands[0].bet).toBe(bet.amount);

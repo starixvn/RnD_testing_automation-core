@@ -1,5 +1,4 @@
-import { GameConfiguration } from "../components";
-import { ImageLocator } from "../components";
+import { GameConfiguration, ImageLocator } from "../components";
 
 export default interface IBaseOptions {
     gameConfiguration: GameConfiguration;

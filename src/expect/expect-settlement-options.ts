@@ -7,7 +7,7 @@ expect.extend({
         const uniqueBetOptions = Array.from(new Set(settlementBetOptions));
         const isEqual =
             uniqueBetOptions.length === betOptions.length &&
-            uniqueBetOptions.every(function (value, index) {
+            uniqueBetOptions.every(function (value) {
                 return betOptions.includes(value);
             });
 

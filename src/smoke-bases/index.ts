@@ -6,11 +6,11 @@ import { CardGameBase } from "./card-game-base.spec";
 import { MultiplayGameOptions, MultiplayGameBase } from "./multiplay-game-base.spec";
 import { BalancedBettingGameBase } from "./balanced-betting-game-base.spec";
 
-export {
-    IBaseOptions,
+export { IBaseOptions, MultiplayGameOptions };
+
+export default {
     MiniGameBase,
     TableGameBase,
-    MultiplayGameOptions,
     MultiplayGameBase,
     BalancedBettingGameBase,
     SlotGameBase,
