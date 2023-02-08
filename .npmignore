@@ -2,6 +2,7 @@
 **/*.test.js
 **/coverage
 **/reports
+**/src
 .prettierignore
 .prettierrc
 .gitlab-ci.yml
