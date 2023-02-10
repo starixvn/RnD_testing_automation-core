@@ -3,8 +3,7 @@
     "version": "0.0.2-beta.6",
     "description": "The core of SC automation tests. Built with Playwright.",
     "license": "ISC",
-    "main": "./lib/index.js",
-    "typings": "./lib/index.d.ts",
+    "main": "./src/index.ts",
     "keywords": [
         "automation",
         "testing",
@@ -14,7 +13,6 @@
         "email": "pentagon@luminetsoft.com",
         "name": "pentagon"
     },
-    "type": "module",
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint . --fix  && prettier --write '{src}/**/*.ts'",

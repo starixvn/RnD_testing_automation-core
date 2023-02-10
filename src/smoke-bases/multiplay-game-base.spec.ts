@@ -20,6 +20,7 @@ export class MultiplayGameBase {
             await this.game.waitUntilNextRound();
             await this.game.clickLocator("closeguide");
             await this.game.waitForTimeout(this.options.waitBetTimeout);
+
             // Act
             const betChoice = await this.game.captureChoice(this.options.placeBetChoices[0]);
 
