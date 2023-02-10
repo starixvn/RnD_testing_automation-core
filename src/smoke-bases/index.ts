@@ -1,4 +1,4 @@
-import * as IBaseOptions from "./base-options";
+import { IBaseOptions } from "./base-options";
 import { MiniGameBase } from "./mini-game-base.spec";
 import { TableGameBase } from "./table-game-base.spec";
 import { SlotGameBase } from "./slot-game-base.spec";
