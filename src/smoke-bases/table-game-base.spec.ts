@@ -1,5 +1,5 @@
 import { test, expect, BasePlayer, BaseGame } from "../components";
-import IBaseOptions from "./base-options";
+import { IBaseOptions } from "./base-options";
 import { MiniGameBase } from "./mini-game-base.spec";
 
 export class TableGameBase extends MiniGameBase {

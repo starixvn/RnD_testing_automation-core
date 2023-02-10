@@ -1,7 +1,7 @@
 import { GameEvent } from "../_shared";
 import { test, expect, BasePlayer, BaseGame } from "../components";
 
-import IBaseOptions from "./base-options";
+import { IBaseOptions } from "./base-options";
 
 export class MiniGameBase {
     game: BaseGame;

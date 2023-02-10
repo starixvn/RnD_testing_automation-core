@@ -1,6 +1,6 @@
 import { GameEvent } from "../_shared";
 import { test, expect, BasePlayer, BaseGame, GameConfiguration } from "../components";
-import IBaseOptions from "./base-options";
+import { IBaseOptions } from "./base-options";
 
 export interface MultiplayGameOptions extends IBaseOptions {
     gameConfiguration: GameConfiguration;

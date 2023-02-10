@@ -1,6 +1,6 @@
 import { GameConfiguration, ImageLocator } from "../components";
 
-export default interface IBaseOptions {
+export interface IBaseOptions {
     gameConfiguration: GameConfiguration;
     locators: ImageLocator[];
     waitBetTimeout: number;
