@@ -3,7 +3,15 @@
     "version": "0.0.2-beta.7",
     "description": "The core of SC automation tests. Built with Playwright.",
     "license": "ISC",
-    "main": "./src/index.ts",
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts",
+    "files": [
+        "lib",
+        "global.d.ts"
+    ],
+    "engines": {
+        "node": ">=12"
+    },
     "keywords": [
         "automation",
         "testing",
