@@ -30,5 +30,3 @@ test.beforeEach(async ({}, testInfo) => {
 test.afterAll(async ({ browser }) => {
     await browser.close();
 });
-
-export { expect } from "@playwright/test";
