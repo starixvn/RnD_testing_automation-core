@@ -1,6 +1,6 @@
 import { GameEvent } from "./../_shared";
 import { test, BasePlayer, BaseGame } from "./../components";
-import { expect } from "../expect";
+import { expect } from "../expects";
 import { MiniGameBase } from "./mini-game-base.spec";
 
 export class BalancedBettingGameBase extends MiniGameBase {

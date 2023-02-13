@@ -1,5 +1,5 @@
 import { test, BasePlayer, BaseGame } from "../components";
-import { expect } from "../expect";
+import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
 import { MiniGameBase } from "./mini-game-base.spec";
 

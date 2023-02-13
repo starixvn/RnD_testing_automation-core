@@ -1,6 +1,6 @@
 import { GameEvent } from "../_shared";
 import { test, BasePlayer, BaseGame } from "../components";
-import { expect } from "../expect";
+import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
 
 export interface CardGameOptions extends IBaseOptions {
