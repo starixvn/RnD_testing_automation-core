@@ -2,6 +2,8 @@ variables:
     PROJECT_NAME: sc-automation-core
 
 stages:  
+    - test
+    - post-test
     - publish
 
 include:
