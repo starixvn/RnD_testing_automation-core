@@ -80,3 +80,5 @@ expect.extend({
         };
     },
 });
+
+export { expect };
