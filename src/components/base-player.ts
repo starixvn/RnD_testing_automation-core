@@ -1,5 +1,6 @@
 import { GameEvent } from "../_shared";
 import { BaseGame } from "./base-game";
+import { CSLocatorNames } from "../components/base-classic-slot-locator";
 
 export class BasePlayer {
     readonly game: BaseGame;
@@ -8,11 +9,49 @@ export class BasePlayer {
         this.game = game;
     }
 
-    async placeHedgeBet(hedgeChoices: string[], amount = 1, subGameName?: string): Promise<void> {
+    async placeHedgeBet(hedgeChoices: string[], amount: number = 1, subGameName?: string): Promise<void> {
         await this.game.waitUntilPlaceBet(subGameName);
 
         await this.betOn(hedgeChoices[0], amount, subGameName);
         await this.betOn(hedgeChoices[1], amount, subGameName);
+    }
+
+    async placeMaxBet(choice: string, maxBetAmount: number[], subGameName?: string): Promise<void> {
+        if (!this.game.gameConfiguration.cardgame) {
+            await this.game.waitUntilPlaceBet(subGameName);
+        }
+        if (this.game.gameConfiguration.cardgame) {
+            await this.game.clickLocator(`btnCancelBet`);
+            await this.game.waitForTimeout(1000);
+            await this.game.clickToChoice(choice);
+            for (let index = 0; index < 10; index++) {
+                await this.game.clickLocator(`btnRightArrow`);
+                await this.game.waitForTimeout(100);
+            }
+            await this.game.clickToChoice(choice);
+            await this.game.waitForTimeout(1000);
+        } else if (this.game.gameConfiguration.betBoard) {
+            await this.game.clickToChoice(choice);
+            await this.game.clickStake(maxBetAmount[0]);
+            await this.game.clickSubmitBet();
+            await this.game.waitForTimeout(1000);
+            await this.game.clickToChoice(choice);
+            await this.game.waitForTimeout(1000);
+            for (let index = 0; index < 10; index++) {
+                await this.game.clickStake(maxBetAmount[1]);
+                await this.game.waitForTimeout(100);
+            }
+            await this.game.clickSubmitBet();
+        } else {
+            await this.betOn(choice, maxBetAmount[0], subGameName);
+            await this.game.waitForTimeout(1000);
+            for (let index = 0; index < 10; index++) {
+                await this.game.clickLocator(`btnRightArrow`);
+                await this.game.waitForTimeout(100);
+            }
+            await this.game.clickToChoice(choice);
+        }
+        await this.game.waitForTimeout(500);
     }
 
     async placeBet(choice: string, amount = 1, subGameName?: string): Promise<any> {
@@ -28,7 +67,31 @@ export class BasePlayer {
         }
     }
 
-    async betOn(choice: string, amount = 1, subGameName?: string): Promise<any> {
+    async selectPayline(choice: string): Promise<void> {
+        await this.game.clickLocator(CSLocatorNames.btnPayline);
+        await this.game.waitForTimeout(500);
+        await this.game.clickLocator(CSLocatorNames.btnClearPayline);
+        await this.game.clickLocator(choice);
+        await this.game.clickLocator(CSLocatorNames.btnConfirmPayline);
+        await this.game.waitForTimeout(500);
+    }
+
+    async selectBetStake(stake: string): Promise<void> {
+        await this.game.clickLocator(CSLocatorNames.cboBetLevel);
+        await this.game.waitForTimeout(500);
+        await this.game.clickLocator(stake);
+        await this.game.waitForTimeout(1000);
+    }
+
+    async placeBetClassicSlot(choice: string, stake: string): Promise<any> {
+        await this.selectPayline(choice);
+        await this.selectBetStake(stake);
+        await this.game.clickSpin();
+
+        return await this.game.waitForEndBet();
+    }
+
+    async betOn(choice: string, amount: number = 1, subGameName?: string): Promise<any> {
         await this.game.clickToChoice(choice);
 
         if (this.game.gameConfiguration.betBoard) {

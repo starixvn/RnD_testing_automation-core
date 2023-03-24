@@ -4,6 +4,6 @@ export default {
     lobbyTimeout: 15000, // 15s
     enabledMsgPack: true,
     pwd: "1234aa",
-    groupCurrencyId: "61b048d27e6d8f000145357f",
+    groupCurrencyId: "61b048be7e6d8f000145357d",
     getbalance: "https://proxy.sabagame.com/user/auth/balance",
 };

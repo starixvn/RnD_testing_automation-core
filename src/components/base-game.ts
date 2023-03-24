@@ -2,9 +2,11 @@ import type { Page } from "@playwright/test";
 import type { WebSocket as PlaywrightWs } from "playwright-core";
 import { GameEvent, waitForMessage, parseSocketPayload } from "./../_shared";
 import { ssoToGame, getConfig } from "./../auth/auth";
-
 import { ImageLocator, ImageSnapshot } from "./base-image-locator";
 import { GameConfiguration } from "./game-configuration";
+import { Tesseract } from "tesseract.ts";
+import { CSLocatorNames } from "../components/base-classic-slot-locator";
+import { expect } from "@playwright/test";
 
 export class BaseGame {
     readonly LobbyTimeout: number = 50000;
@@ -49,7 +51,14 @@ export class BaseGame {
                 });
             }
         });
+        await this.logConsole();
         await this.page.waitForTimeout(this.LobbyTimeout);
+    }
+
+    async getTextLocator(locatorName: string) {
+        const buffer = await this.capture(locatorName);
+        const data = await Tesseract.recognize(buffer.image);
+        return data.text.length > 1 ? data.text : null;
     }
 
     attachSocketAndCaptureEvent(event: string) {
@@ -142,23 +151,20 @@ export class BaseGame {
         return this.capture(`historyPopup`);
     }
 
+    async captureLocator(locator: string): Promise<ImageSnapshot> {
+        return this.capture(locator);
+    }
+
     async clickToChoice(choice: string): Promise<void> {
         const postfix = this.gameConfiguration.betBoard ? this.BetBoardPostfix : "";
-        const locator = this.locator(`${choice}Choice${postfix}`);
-        if (locator) {
-            await locator.click(this.page);
-        }
+        await this.clickLocator(`${choice}Choice${postfix}`);
     }
 
     async clickToSlotsChoice(choice: string): Promise<void> {
-        await this.locator("choiceMenu")?.click(this.page);
+        await this.clickLocator("choiceMenu");
         await this.waitForTimeout(500);
-        await this.locator("clearChoices")?.click(this.page);
-        const locator = this.locator(`${choice}Choice`);
-
-        if (locator) {
-            await locator.click(this.page);
-        }
+        await this.clickLocator("clearChoices");
+        await this.clickLocator(`${choice}Choice`);
     }
 
     async clickLocator(element: string): Promise<void> {
@@ -182,6 +188,21 @@ export class BaseGame {
         await this.waitForTimeout(1000);
     }
 
+    async clickGuide(): Promise<void> {
+        if (this.locator("hamburgerMenu")) {
+            await this.clickLocator("hamburgerMenu");
+            await this.waitForTimeout(500);
+        }
+
+        await this.clickLocator("guideMenu");
+        await this.waitForTimeout(3000);
+    }
+
+    async getGuideContent() {
+        let getguidecontent = this.page.frameLocator("iframe").locator("id=container-guide").textContent();
+        return getguidecontent;
+    }
+
     async captureErrorMessage(): Promise<ImageSnapshot> {
         return this.capture(`errorMessage`);
     }
@@ -192,16 +213,17 @@ export class BaseGame {
 
     async clickStand(): Promise<void> {
         await this.waitForTimeout(6000);
-        await this.locator("standcard")?.click(this.page);
+        await this.clickLocator("standcard");
     }
 
     async clickHit(): Promise<void> {
         await this.locator("hitcard")?.click(this.page);
     }
+
     async clickSlotsStake(amount: number = 1): Promise<void> {
-        await this.locator("stakeMenu")?.click(this.page);
+        await this.clickLocator("stakeMenu");
         await this.waitForTimeout(500);
-        await this.locator(`stake${amount}`)?.click(this.page);
+        await this.clickLocator(`stake${amount}`);
     }
 
     async clickSubmitBet(): Promise<void> {
@@ -211,11 +233,81 @@ export class BaseGame {
 
     async clickSpin(): Promise<void> {
         await this.waitForTimeout(500);
-        await this.locator("spin")?.click(this.page);
+        const locator = this.locator("spin");
+        if (locator) {
+            await locator.click(this.page);
+        } else {
+            await this.clickLocator(CSLocatorNames.btnSpin);
+        }
     }
 
     async clickOutSide(): Promise<void> {
-        await this.locator("outside")?.click(this.page);
+        const locator = this.locator("outside");
+        if (locator) {
+            await locator.click(this.page);
+        } else {
+            await this.clickLocator(CSLocatorNames.btnClosePopup);
+        }
         await this.waitForTimeout(500);
     }
+
+    async mouseDragDrop(from: Pos, to: Pos): Promise<void> {
+        let xPos = from.xPos,
+            yPos = from.yPos;
+        await this.page.mouse.move(xPos, yPos);
+        await this.page.mouse.down();
+        await this.page.waitForTimeout(500);
+        (xPos = to.xPos), (yPos = to.yPos);
+        await this.page.mouse.move(xPos, yPos);
+        await this.page.waitForTimeout(1000);
+        await this.page.mouse.up();
+    }
+
+    async mouseWhell(to: Pos): Promise<void> {
+        let xPos = to.xPos,
+            yPos = to.yPos;
+        await this.page.mouse.wheel(xPos, yPos);
+    }
+
+    async getCountFrameLocator(locator: string) {
+        return this.page.frameLocator("iframe").locator(locator).count();
+    }
+
+    async captureFrameLocator(locator: string, path: string) {
+        return this.page.frameLocator("iframe").locator(locator).screenshot({ path: path });
+    }
+
+    async keyboardPress(key: string) {
+        return this.page.keyboard.press(key);
+    }
+
+    async logConsole() {
+        this.page.on("console", (msg) => {
+            if (msg.text().length < 3) {
+                logMsg.push(msg.text());
+            }
+            console.log(msg.text());
+        });
+    }
+
+    async imageExist(image: string): Promise<void> {
+        const captureimage = await this.captureLocator(image);
+        expect(captureimage.image, `verify ${image}`).toMatchSnapshot(image + ".png");
+    }
+
+    async guideImages(): Promise<void> {
+        let totalItems = await this.getCountFrameLocator("xpath=//*[@id='container-guide']//li[@class='guide-item']");
+        for (let index = 1; index <= totalItems; index++) {
+            let tempimage = await this.captureFrameLocator(
+                `xpath=//*[@id='container-guide']//li[@class='guide-item'][${index}]`,
+                `screenshots/imgGuide${index}.png`
+            );
+            expect(tempimage).toMatchSnapshot(`imgGuide${index}.png`);
+        }
+    }
+}
+
+export interface Pos {
+    xPos: number;
+    yPos: number;
 }

@@ -1,8 +1,8 @@
 import { test as base } from "@playwright/test";
-
 import { ImageLocator } from "./base-image-locator";
 import { GameConfiguration } from "./game-configuration";
 import { BaseGame } from "./base-game";
+global.logMsg = [];
 
 type BaseFixtures = {
     gameConfigurations: GameConfiguration;
