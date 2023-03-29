@@ -407,7 +407,14 @@ const openRoundDetail = async (game: BaseGame) => {
     await game.waitForTimeout(mediWait);
 };
 
-const verifyticketdata = async (game: BaseGame, expectdata: any) => {
+export interface Expectdata {
+    line: string;
+    betdate: string;
+    bet: string;
+    betwin: string;
+}
+
+const verifyticketdata = async (game: BaseGame, expectdata: Expectdata) => {
     let line = expectdata.line.replace("btnPayline", "");
     const ticketdata = await getDataFistRowHistory(game);
     expect(ticketdata.betdate, "verify bet date").toEqual(expectdata.betdate);
