@@ -369,26 +369,37 @@ const clickTurbo = async (game: BaseGame) => {
     await game.waitForTimeout(shortWait);
 };
 
-const getRoundId = async (game: any, elementname: string = CSLocatorNames.lblRoundID) => {
+const getRoundId = async (game: BaseGame, elementname: string = CSLocatorNames.lblRoundID) => {
     await game.waitForTimeout(shortWait);
     let roundId = await game.getTextLocator(elementname);
 
-    return typeof roundId != null ? roundId.replace(/[^0-9.]/g, "") : roundId;
+    return roundId != null ? roundId.replace(/[^0-9.]/g, "") : roundId;
 };
 
-const getDataFistRowHistory = async (game: any, elementname: string = CSLocatorNames.lblHistoryFirstRow) => {
+const getDataFistRowHistory = async (game: BaseGame, elementname: string = CSLocatorNames.lblHistoryFirstRow) => {
     let tempdata = await game.getTextLocator(elementname);
-    tempdata = await tempdata.split(" ");
 
-    return {
-        bettime: tempdata[0].toString(),
-        betdate: tempdata[1].toString(),
-        // roundID: tempdata[2].toString().replace(/[^0-9.]/g, ""), // can not getn roundID in new slots games
-        bet: tempdata[2].toString().replace("'I", 1),
-        line: tempdata[3].toString().replace("'I", 1),
-        totalbet: tempdata[4].toString().replace("'I", 1),
-        betwin: tempdata[5].toString().replaceAll("\n", ""),
-    };
+    if (tempdata != null) {
+        let data = tempdata.split(" ");
+        return {
+            bettime: data[0].toString(),
+            betdate: data[1].toString(),
+            // roundID: tempdata[2].toString().replace(/[^0-9.]/g, ""), // can not getn roundID in new slots games
+            bet: data[2].toString().replace("'I", "1"),
+            line: data[3].toString().replace("'I", "1"),
+            totalbet: data[4].toString().replace("'I", "1"),
+            betwin: data[5].toString().replace("\n", ""),
+        };
+    } else {
+        return {
+            bettime: "N/A",
+            betdate: "N/A",
+            bet: "N/A",
+            line: "N/A",
+            totalbet: "N/A",
+            betwin: "N/A",
+        };
+    }
 };
 
 const openRoundDetail = async (game: BaseGame) => {
