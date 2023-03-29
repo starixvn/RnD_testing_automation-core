@@ -116,7 +116,7 @@ export class SlotGameBase {
         });
 
         test("Verify case user select 10 auto spins then wait for finishing 10 auto spins", async () => {
-            let settledResultsAutoSpin = [];
+            let settledResultsAutoSpin: Array<string> =[]
             const totalAutoSpin = 10;
 
             const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: CSLocatorNames.lblBetLevel1 };
@@ -128,7 +128,9 @@ export class SlotGameBase {
             await selectAutoSpin(this.game, totalAutoSpin);
             for (let index = 1; index <= totalAutoSpin; index++) {
                 const settledResults = await this.game.waitForSettlement();
-                settledResultsAutoSpin.push(settledResults.winAmount);
+
+                    settledResultsAutoSpin.push(settledResults.winAmount)
+                
             }
 
             //Assert
@@ -140,7 +142,7 @@ export class SlotGameBase {
         });
 
         test("Verify user can stop auto spin process by clicking on autospin button", async () => {
-            let settledResultsAutoSpin = [];
+            let settledResultsAutoSpin: Array<string> =[]
             const totalAutoSpin = 10;
             await selectAutoSpin(this.game, totalAutoSpin);
 
