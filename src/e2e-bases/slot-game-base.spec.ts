@@ -332,13 +332,13 @@ export class SlotGameBase {
     }
 }
 
-const openAutoSpinBoard = async (game: any) => {
+const openAutoSpinBoard = async (game: BaseGame) => {
     await game.clickOutSide();
     await game.clickLocator(CSLocatorNames.btnAutoSpin);
     await game.waitForTimeout(shortWait);
 };
 
-const selectAutoSpin = async (game: any, totalspin: number) => {
+const selectAutoSpin = async (game: BaseGame, totalspin: number) => {
     await game.clickLocator(CSLocatorNames.btnAutoSpin);
     await game.waitForTimeout(mediWait);
     await game.clickLocator(CSLocatorNames[`btnAutoSpin${totalspin}`]);
@@ -347,24 +347,24 @@ const selectAutoSpin = async (game: any, totalspin: number) => {
     await game.waitForTimeout(shortWait);
 };
 
-const openPayLineBoard = async (game: any) => {
+const openPayLineBoard = async (game: BaseGame) => {
     await game.clickLocator(CSLocatorNames.btnPayline);
     await game.waitForTimeout(mediWait);
 };
 
-const selectBetChoice = async (game: any, choice: string) => {
+const selectBetChoice = async (game: BaseGame, choice: string) => {
     await game.waitForTimeout(shortWait);
     await game.clickLocator(CSLocatorNames.btnClearPayline);
     await game.clickLocator(choice);
     await game.waitForTimeout(shortWait);
 };
 
-const closePayLineBoard = async (game: any) => {
+const closePayLineBoard = async (game: BaseGame) => {
     await game.clickLocator(CSLocatorNames.btnClosePopup);
     await game.waitForTimeout(mediWait);
 };
 
-const clickTurbo = async (game: any) => {
+const clickTurbo = async (game: BaseGame) => {
     await game.clickLocator(CSLocatorNames.btnTurbo);
     await game.waitForTimeout(shortWait);
 };
@@ -391,12 +391,12 @@ const getDataFistRowHistory = async (game: any, elementname: string = CSLocatorN
     };
 };
 
-const openRoundDetail = async (game: any) => {
+const openRoundDetail = async (game: BaseGame) => {
     await game.clickLocator(CSLocatorNames.locHistoryRoundId);
     await game.waitForTimeout(mediWait);
 };
 
-const verifyticketdata = async (game: any, expectdata: any) => {
+const verifyticketdata = async (game: BaseGame, expectdata: any) => {
     let line = expectdata.line.replace("btnPayline", "");
     const ticketdata = await getDataFistRowHistory(game);
     expect(ticketdata.betdate, "verify bet date").toEqual(expectdata.betdate);
@@ -405,7 +405,7 @@ const verifyticketdata = async (game: any, expectdata: any) => {
     expect(ticketdata.betwin, "verify bet win").toEqual(expectdata.betwin);
 };
 
-const selectPayline = async (game: any, payline: string) => {
+const selectPayline = async (game: BaseGame, payline: string) => {
     await game.clickLocator(CSLocatorNames.btnPayline);
     await game.waitForTimeout(shortWait);
     await game.clickLocator(CSLocatorNames.btnClearPayline);
@@ -414,22 +414,17 @@ const selectPayline = async (game: any, payline: string) => {
     await game.waitForTimeout(shortWait);
 };
 
-const selectBetStake = async (game: any, betLevel: string) => {
+const selectBetStake = async (game: BaseGame, betLevel: string) => {
     await game.clickLocator(CSLocatorNames.cboBetLevel);
     await game.waitForTimeout(shortWait);
     await game.clickLocator(betLevel);
     await game.waitForTimeout(shortWait);
 };
 
-const clickSpin = async (game: any) => {
-    await game.clickLocator(CSLocatorNames.btnSpin);
-    await game.waitForTimeout(shortWait);
-};
-
 const getBoardID = async () => {
     let boardId = "";
     for (let index = 0; index <= 10; index++) {
-        if (logMsg[0] === "B" + index) {
+        if (global.logMsg[0] === "B" + index) {
             boardId = "B" + index;
             break;
         }

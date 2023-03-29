@@ -208,6 +208,10 @@ export class BaseGame {
         return this.capture(`errorMessage`);
     }
 
+    async captureErrorBetLimit(): Promise<ImageSnapshot> {
+        return this.capture(`msgMaxbetLimit`);
+    }
+
     async clickStake(amount: number = 1): Promise<void> {
         await this.locator(`stake${amount}`)?.click(this.page);
     }
@@ -285,7 +289,7 @@ export class BaseGame {
     async logConsole() {
         this.page.on("console", (msg) => {
             if (msg.text().length < 3) {
-                logMsg.push(msg.text());
+                global.logMsg.push(msg.text());
             }
             console.log(msg.text());
         });
