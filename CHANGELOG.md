@@ -1,3 +1,14 @@
+## [1.0.1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.0...v1.0.1) (2023-03-29)
+
+
+### Bug Fixes
+
+* auth paramater ([731a803](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/731a803e516b0ca5d282295f900299e0507e7df7))
+* e2e remove any in slot base ([e8933de](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/e8933def39fbb48e7031a18408cabb8fba133474))
+* error e2e slot base ([1d0aaf6](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/1d0aaf623f73b6613e6052bc457ec64c6a4e3be1))
+* logMsg ([1152cbb](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/1152cbb1020866843c051caa6352cf81148a6109))
+* slot base ([fd1f235](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/fd1f235dad9da76bac232c3a1a22d44fb5c79628))
+
 # 1.0.0 (2023-02-13)
 
 
