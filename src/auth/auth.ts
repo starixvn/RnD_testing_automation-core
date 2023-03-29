@@ -12,10 +12,7 @@ export enum Environment {
     PROD = "prod",
 }
 
-export const ssoToGame = async (page: Page, gameId: number = 2): Promise<void> => {
-    const playerId = process.env.TestAccount ?? "";
-    const productId = process.env.ProductId ?? "";
-    const env = process.env.npm_config_env ?? Environment.LOCAL;
+export const ssoToGame = async (page: Page, gameId: number, playerId: string, productId: string, env: string): Promise<void> => {
     const config = getConfig();
 
     if (playerId === "" || productId === "") {

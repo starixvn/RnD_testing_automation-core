@@ -29,7 +29,8 @@ export class BaseGame {
     }
 
     async login() {
-        await ssoToGame(this.page, this.gameConfiguration.id);
+        const env = (process.env.npm_config_env ?? "local").toLowerCase();
+        await ssoToGame(this.page, this.gameConfiguration.id, this.gameConfiguration.accounts[env], this.gameConfiguration.productId, env);
         this.msgpack = getConfig().enabledMsgPack;
         this.page.on("websocket", async (ws) => {
             if (ws.url().includes(this.gameConfiguration.socketName ?? this.gameConfiguration.name.toLowerCase())) {

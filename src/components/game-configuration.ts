@@ -16,4 +16,6 @@ export class GameConfiguration {
     betBoard?: boolean;
     slotsgame?: boolean;
     cardgame?: boolean;
+    accounts: object;
+    productId: string
 }
