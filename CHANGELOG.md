@@ -1,3 +1,10 @@
+## [1.0.2](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.1...v1.0.2) (2023-03-30)
+
+
+### Bug Fixes
+
+* log login link ([421d5d5](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/421d5d58ac5b0a1fe7b6ab82f25f390d0e238397))
+
 ## [1.0.1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.0...v1.0.1) (2023-03-29)
 
 
