@@ -107,7 +107,7 @@ export class SlotGameBase {
 
     protected autoSpinTests() {
         test("Verify default UI of AutoSpin popup", async () => {
-            test.setTimeout(this.options.gameConfiguration.maxTimeout);
+            test.setTimeout(this.options.gameConfiguration.maxTimeout+longWait);
             // Act
             await openAutoSpinBoard(this.game);
             await this.game.imageExist(CSLocatorNames.popAutoSpin);
@@ -387,10 +387,10 @@ const getDataFistRowHistory = async (game: BaseGame, elementname: string = CSLoc
             bettime: data[0].toString(),
             betdate: data[1].toString(),
             // roundID: tempdata[2].toString().replace(/[^0-9.]/g, ""), // can not getn roundID in new slots games
-            bet: data[2].toString().replace("'I", "1"),
-            line: data[3].toString().replace("'I", "1"),
-            totalbet: data[4].toString().replace("'I", "1"),
-            betwin: data[5].toString().replace("\n", ""),
+            bet: data[2].toString().replace(/[^0-9.]/g, ''),
+            line: data[3].toString().replace(/[^0-9.]/g, ''),
+            totalbet: data[4].toString().replace(/[^0-9.]/g, ''),
+            betwin: data[5].toString().replace(/[^0-9.]/g, ''),
         };
     } else {
         return {
