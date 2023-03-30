@@ -22,6 +22,7 @@ export const ssoToGame = async (page: Page, gameId: number, playerId: string, pr
     if (env.includes("local")) {
         const memberSiteLink = `${config.memberSite}?obCustId=${playerId}&balance=20000`;
         await page.goto(memberSiteLink);
+        console.log('Login Local',memberSiteLink);
         const ssoLink = (await page.locator(LobbyLocator.ssoLink).textContent()) ?? "";
 
         await page.goto(`${ssoLink.replace("gameId=0", `gameId=${gameId}`)}`);
@@ -40,6 +41,7 @@ const loginMemberSite = async (page: Page, config: any, env: string, playerId: s
     const timeout = config.lobbyTimeout;
 
     await page.goto(config.memberSite);
+    console.log('Login Member Site: ',config.memberSite); 
     await page.waitForLoadState("domcontentloaded", { timeout });
 
     switch (env) {
