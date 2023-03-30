@@ -1,3 +1,10 @@
+## [1.0.3](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.2...v1.0.3) (2023-03-30)
+
+
+### Bug Fixes
+
+* slot game base core ([44c4e26](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/44c4e2659ff97ff8fbc38978a8b9a6bb0ef8e47a))
+
 ## [1.0.2](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.1...v1.0.2) (2023-03-30)
 
 
