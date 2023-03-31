@@ -1,3 +1,10 @@
+## [1.0.4](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.3...v1.0.4) (2023-03-31)
+
+
+### Bug Fixes
+
+* config env.toLowerCase(); ([12656e2](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/12656e28a3039e51f7969747096b584edaeaeb99))
+
 ## [1.0.3](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.2...v1.0.3) (2023-03-30)
 
 
