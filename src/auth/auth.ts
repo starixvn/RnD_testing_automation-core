@@ -32,7 +32,7 @@ export const ssoToGame = async (page: Page, gameId: number, playerId: string, pr
 };
 
 export const getConfig = (): any => {
-    const env = process.env.npm_config_env ?? Environment.LOCAL;
+    const env = (process.env.npm_config_env ?? Environment.LOCAL).toLowerCase();
 
     return configs[env];
 };
