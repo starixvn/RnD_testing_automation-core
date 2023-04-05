@@ -124,13 +124,14 @@ export class MultiplayGameBase {
             test(`THEN player able to place a bet and settle ${gameOptions.name}`, async () => {
                 // Arrange
                 test.setTimeout(gameOptions.maxTimeout);
-                const bet = { choice: gameOptions.choices[0], amount: 1 };
+                let bet = { choice: gameOptions.choices[0], amount: 1 };
                 this.game.attachSocketAndCaptureEvent(GameEvent.WinStatus);
 
                 // Act
                 const placeBetResponse = await this.player.placeBet(bet.choice, bet.amount, gameOptions.name);
 
                 const settledResults = await this.game.waitForSettlement(gameOptions.name);
+                bet.choice = bet.choice.toString().replace(/[0-9]/g, "");
                 // // Assert
                 expect(placeBetResponse.endBet).toBe(bet.amount);
                 expect(settledResults.settlementResult).toMatchBetOptions(this.options.gameConfiguration.choices);
