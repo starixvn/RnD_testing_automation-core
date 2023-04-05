@@ -1,3 +1,10 @@
+# [1.1.0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.4...v1.1.0) (2023-04-05)
+
+
+### Features
+
+* add multiple languages ([e045195](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/e045195743b7ee59b4f93da1bf87c87df3682288))
+
 ## [1.0.4](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.3...v1.0.4) (2023-03-31)
 
 
