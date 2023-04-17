@@ -338,11 +338,9 @@ export class SlotGameBase {
             let guidecontent
             for (let index = 1; index <= guidepages; index++) {
                 guidecontent = await this.game.captureFrameLocator(`${GuideLocator.totalPages}[${index}]`,`screenshots/imgGuide${index}.png`);
-            }
-
-            // Assert 
-            for (let index = 1; index <= guidepages; index++) {
+                 // Assert 
                 expect(guidecontent.image).toMatchSnapshot(guidecontent.name);
+
             }
 
             await this.game.clickLocator(CSLocatorNames.btnClosePopup);

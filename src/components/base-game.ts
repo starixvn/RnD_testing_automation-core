@@ -126,7 +126,7 @@ export class BaseGame {
         return settledResults;
     }
 
-    async waitForTimeout(time: number = 5000): Promise<void> {
+    async waitForTimeout(time = 5000): Promise<void> {
         await this.page.waitForTimeout(time);
     }
 
@@ -168,7 +168,7 @@ export class BaseGame {
         await this.clickLocator(`${choice}Choice`);
     }
 
-    async clickLocator(element: string, wait: number = 500): Promise<void> {
+    async clickLocator(element: string, wait= 500): Promise<void> {
         const locator = this.locator(element);
         if (locator) {
             await locator.click(this.page);
