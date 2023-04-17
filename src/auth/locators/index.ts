@@ -46,3 +46,7 @@ export enum GroupCurrencyLocator {
     currencyGroupDropdown = 'xpath=//*/select[@id="group"]',
     submitButton = 'xpath=//input[@value="Submit"]',
 }
+
+export enum GuideLocator {
+    totalPages = "xpath=//*[@id='container-guide']//li[@class='guide-item']"
+}

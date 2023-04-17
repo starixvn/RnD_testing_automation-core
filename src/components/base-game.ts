@@ -168,10 +168,11 @@ export class BaseGame {
         await this.clickLocator(`${choice}Choice`);
     }
 
-    async clickLocator(element: string): Promise<void> {
+    async clickLocator(element: string, wait: number = 500): Promise<void> {
         const locator = this.locator(element);
         if (locator) {
             await locator.click(this.page);
+            await this.waitForTimeout(wait);
         }
     }
 
@@ -179,24 +180,34 @@ export class BaseGame {
         return this.locators.find((x) => x.name === name);
     }
 
-    async clickHistory(): Promise<void> {
-        if (this.locator("hamburgerMenu")) {
-            await this.locator("hamburgerMenu")?.click(this.page);
-            await this.waitForTimeout(500);
-        }
+    async clickHistory(waitTime: number = 500): Promise<void> {
+        const hamburgerMenu = this.locator("hamburgerMenu") || this.locator(CSLocatorNames.mnuHamburger);
+        const historyMenu = this.locator("historyMenu") || this.locator(CSLocatorNames.icoHistory);
 
-        await this.locator("historyMenu")?.click(this.page);
-        await this.waitForTimeout(1000);
+        if (hamburgerMenu) {
+            await hamburgerMenu.click(this.page);
+            await this.waitForTimeout(waitTime);
+        }
+        if (historyMenu) {
+            await historyMenu.click(this.page);
+            await this.waitForTimeout(waitTime);
+        }
     }
 
-    async clickGuide(): Promise<void> {
-        if (this.locator("hamburgerMenu")) {
-            await this.clickLocator("hamburgerMenu");
-            await this.waitForTimeout(500);
+    async clickGuide(waitTime: number = 500): Promise<void> {
+        const hamburgerMenu = this.locator("hamburgerMenu") || this.locator(CSLocatorNames.mnuHamburger);
+        const guideMenu = this.locator("guideMenu") || this.locator(CSLocatorNames.icoGuide);
+
+        if (hamburgerMenu) {
+            await hamburgerMenu.click(this.page);
+            await this.waitForTimeout(waitTime);
         }
 
-        await this.clickLocator("guideMenu");
-        await this.waitForTimeout(3000);
+        if (guideMenu) {
+            await guideMenu.click(this.page);
+            await this.page.waitForLoadState("domcontentloaded");
+            await this.waitForTimeout(waitTime);
+        }
     }
 
     async getGuideContent() {
@@ -221,10 +232,6 @@ export class BaseGame {
         await this.clickLocator("standcard");
     }
 
-    async clickHit(): Promise<void> {
-        await this.locator("hitcard")?.click(this.page);
-    }
-
     async clickSlotsStake(amount: number = 1): Promise<void> {
         await this.clickLocator("stakeMenu");
         await this.waitForTimeout(500);
@@ -233,16 +240,16 @@ export class BaseGame {
 
     async clickSubmitBet(): Promise<void> {
         await this.waitForTimeout(500);
-        await this.locator(`submit${this.BetBoardPostfix}`)?.click(this.page);
-    }
 
-    async clickSpin(): Promise<void> {
-        await this.waitForTimeout(500);
-        const locator = this.locator("spin");
-        if (locator) {
-            await locator.click(this.page);
+        let submitButton = this.locator(`submit${this.BetBoardPostfix}`);
+        let spinButton = this.locator("spin") || this.locator(CSLocatorNames.btnSpin);
+
+        if (submitButton) {
+            await submitButton.click(this.page);
+        } else if (spinButton) {
+            await spinButton.click(this.page);
         } else {
-            await this.clickLocator(CSLocatorNames.btnSpin);
+            await this.locator("hitcard")?.click(this.page);
         }
     }
 
@@ -257,20 +264,19 @@ export class BaseGame {
     }
 
     async mouseDragDrop(from: Pos, to: Pos): Promise<void> {
-        let xPos = from.xPos,
-            yPos = from.yPos;
-        await this.page.mouse.move(xPos, yPos);
+        const { xPos: fromX, yPos: fromY } = from;
+        const { xPos: toX, yPos: toY } = to;
+
+        await this.page.mouse.move(fromX, fromY);
         await this.page.mouse.down();
         await this.page.waitForTimeout(500);
-        (xPos = to.xPos), (yPos = to.yPos);
-        await this.page.mouse.move(xPos, yPos);
+        await this.page.mouse.move(toX, toY);
         await this.page.waitForTimeout(1000);
         await this.page.mouse.up();
     }
 
     async mouseWhell(to: Pos): Promise<void> {
-        let xPos = to.xPos,
-            yPos = to.yPos;
+        const { xPos, yPos } = to;
         await this.page.mouse.wheel(xPos, yPos);
     }
 
@@ -293,22 +299,6 @@ export class BaseGame {
             }
             console.log(msg.text());
         });
-    }
-
-    async imageExist(image: string): Promise<void> {
-        const captureimage = await this.captureLocator(image);
-        expect(captureimage.image, `verify ${image}`).toMatchSnapshot(image + ".png");
-    }
-
-    async guideImages(): Promise<void> {
-        let totalItems = await this.getCountFrameLocator("xpath=//*[@id='container-guide']//li[@class='guide-item']");
-        for (let index = 1; index <= totalItems; index++) {
-            let tempimage = await this.captureFrameLocator(
-                `xpath=//*[@id='container-guide']//li[@class='guide-item'][${index}]`,
-                `screenshots/imgGuide${index}.png`
-            );
-            expect(tempimage).toMatchSnapshot(`imgGuide${index}.png`);
-        }
     }
 }
 
