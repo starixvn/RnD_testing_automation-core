@@ -6,7 +6,6 @@ import { ImageLocator, ImageSnapshot } from "./base-image-locator";
 import { GameConfiguration } from "./game-configuration";
 import { Tesseract } from "tesseract.ts";
 import { CSLocatorNames } from "../components/base-classic-slot-locator";
-import { expect } from "@playwright/test";
 
 export class BaseGame {
     readonly LobbyTimeout: number = 60000;
