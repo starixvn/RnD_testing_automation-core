@@ -2,6 +2,7 @@ import { GameEvent } from "../_shared";
 import { test, BasePlayer, BaseGame } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
+import { GameGuides } from "../e2e-bases/game-guides.spec";
 
 export interface SlotGameOptions extends IBaseOptions {
     placeBetChoices: string[];
@@ -53,6 +54,11 @@ export class SlotGameBase {
         });
     }
 
+    protected guideTests() {
+        const guides = new GameGuides(this.game, this.player, this.options);
+        guides.tests();
+    }
+
     start(): void {
         test.beforeEach(async ({}, testInfo) => {
             testInfo.snapshotPath = (name: string) => {
@@ -81,5 +87,6 @@ export class SlotGameBase {
         this.inGameOddsTests();
         this.placeBetAndSettleTests();
         this.ticketHistoryTests();
+        this.guideTests();
     }
 }
