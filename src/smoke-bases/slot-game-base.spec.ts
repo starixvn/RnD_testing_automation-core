@@ -10,8 +10,8 @@ export interface SlotGameOptions extends IBaseOptions {
 }
 
 export class SlotGameBase {
-    game: BaseGame;
-    player: BasePlayer;
+    protected game: BaseGame;
+    protected player: BasePlayer;
 
     constructor(protected options: SlotGameOptions) {}
 
