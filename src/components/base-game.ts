@@ -162,9 +162,9 @@ export class BaseGame {
 
     async clickToSlotsChoice(choice: string): Promise<void> {
         await this.clickLocator("choiceMenu");
-        await this.waitForTimeout(500);
-        await this.clickLocator("clearChoices");
+        await this.clickLocator("clearChoices",1000);
         await this.clickLocator(`${choice}Choice`);
+        await this.clickLocator("submitPayline",1000);
     }
 
     async clickLocator(element: string, wait= 500): Promise<void> {

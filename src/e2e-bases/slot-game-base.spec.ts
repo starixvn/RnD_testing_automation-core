@@ -3,7 +3,7 @@ import { test, BasePlayer, BaseGame } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
 import { CSLocatorNames } from "../components/base-classic-slot-locator";
-import { GuideLocator  } from "../auth/locators";
+import { GameGuides } from "../e2e-bases/game-guides.spec";
 
 
 const timeout = 3000;
@@ -327,24 +327,8 @@ export class SlotGameBase {
     }
 
     protected guideTests() {
-        test("AND player could open guide and clarify appropriate content", async () => {
-
-            // Arrange
-            test.setTimeout(this.options.gameConfiguration.maxTimeout);
-            await this.game.clickGuide()
-
-            // Act           
-            const guidepages = await this.game.getCountFrameLocator(GuideLocator.totalPages)
-            let guidecontent
-            for (let index = 1; index <= guidepages; index++) {
-                guidecontent = await this.game.captureFrameLocator(`${GuideLocator.totalPages}[${index}]`,`screenshots/imgGuide${index}.png`);
-                 // Assert 
-                expect(guidecontent.image).toMatchSnapshot(guidecontent.name);
-
-            }
-
-            await this.game.clickLocator(CSLocatorNames.btnClosePopup);
-        });
+        const guides = new GameGuides(this.game, this.player, this.options);
+        guides.tests();
     }
 
     start(): void {
