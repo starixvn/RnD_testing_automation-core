@@ -253,11 +253,9 @@ export class BaseGame {
     }
 
     async clickOutSide(): Promise<void> {
-        const locator = this.locator("outside");
+        const locator = this.locator("outside")||this.locator(CSLocatorNames.btnClosePopup);
         if (locator) {
             await locator.click(this.page);
-        } else {
-            await this.clickLocator(CSLocatorNames.btnClosePopup);
         }
         await this.waitForTimeout(500);
     }

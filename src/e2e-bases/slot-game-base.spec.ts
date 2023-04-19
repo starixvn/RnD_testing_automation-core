@@ -129,7 +129,7 @@ export class SlotGameBase {
             const totalStake = ["Totalbet0_1", "Totalbet1", "Totalbet5"];
             let imgBetStake, imgTotalStake;
             for (let index = 0; index < betStake.length; index++) {
-                await selectBetStake(this.game, `lbl${betStake[index]}`);
+                await this.player.selectBetStake(`lbl${betStake[index]}`);
 
                 // Act
                 imgBetStake = await this.game.capture(`img${betStake[index]}`);
@@ -164,8 +164,8 @@ export class SlotGameBase {
 
             const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: CSLocatorNames.lblBetLevel1 };
             await clickTurbo(this.game);
-            await selectPayline(this.game, CSLocatorNames.btnPayline1);
-            await selectBetStake(this.game, bet.amount);
+            await this.player.selectPayline(CSLocatorNames.btnPayline1)
+            await this.player.selectBetStake(bet.amount);
 
             // Act
             await selectAutoSpin(this.game, totalAutoSpin);
@@ -234,8 +234,8 @@ export class SlotGameBase {
             //Arrange
             this.game.attachSocketAndCaptureEvent(GameEvent.WinStatus);
             const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: 1 };
-            await selectPayline(this.game, CSLocatorNames.btnPayline1);
-            await selectBetStake(this.game, CSLocatorNames.lblBetLevel1);
+            await this.player.selectPayline(CSLocatorNames.btnPayline1);
+            await this.player.selectBetStake(CSLocatorNames.lblBetLevel1);
 
             //Act
             await this.game.keyboardPress("Space");
@@ -375,10 +375,10 @@ const openAutoSpinBoard = async (game: BaseGame) => {
 };
 
 const selectAutoSpin = async (game: BaseGame, totalspin: number) => {
-    await game.clickLocator(CSLocatorNames.btnAutoSpin, 1000);
+    await game.clickLocator(CSLocatorNames.btnAutoSpin, 1500);
     await game.clickLocator(CSLocatorNames[`btnAutoSpin${totalspin}`]);
     await game.clickLocator(CSLocatorNames.btnAutoSpinTurbo);
-    await game.clickLocator(CSLocatorNames.btnAutoSpinStart, 1000);
+    await game.clickLocator(CSLocatorNames.btnAutoSpinStart, 100);
 };
 
 const openPayLineBoard = async (game: BaseGame) => {
@@ -448,18 +448,6 @@ const verifyticketdata = async (game: BaseGame, expectdata: Expectdata) => {
     expect(ticketdata.bet).toEqual(expectdata.bet);
     expect(ticketdata.line, "verify bet bet choice").toEqual(line);
     expect(ticketdata.betwin, "verify bet win").toEqual(expectdata.betwin);
-};
-
-const selectPayline = async (game: BaseGame, payline: string) => {
-    await game.clickLocator(CSLocatorNames.btnPayline, 1000);
-    await game.clickLocator(CSLocatorNames.btnClearPayline);
-    await game.clickLocator(payline);
-    await game.clickLocator(CSLocatorNames.btnConfirmPayline, 1000);
-};
-
-const selectBetStake = async (game: BaseGame, betLevel: string) => {
-    await game.clickLocator(CSLocatorNames.cboBetLevel);
-    await game.clickLocator(betLevel);
 };
 
 const getBoardID = async () => {

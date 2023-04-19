@@ -59,10 +59,10 @@ export class BasePlayer {
     }
 
     async selectPayline(choice: string): Promise<void> {
-        await this.game.clickLocator(CSLocatorNames.btnPayline);
-        await this.game.clickLocator(CSLocatorNames.btnClearPayline);
-        await this.game.clickLocator(choice);
-        await this.game.clickLocator(CSLocatorNames.btnConfirmPayline);
+        await this.game.clickLocator(CSLocatorNames.btnPayline,1000);
+        await this.game.clickLocator(CSLocatorNames.btnClearPayline,1500);
+        await this.game.clickLocator(choice,1000);
+        await this.game.clickLocator(CSLocatorNames.btnConfirmPayline,1000);
     }
 
     async selectBetStake(stake: string): Promise<void> {
