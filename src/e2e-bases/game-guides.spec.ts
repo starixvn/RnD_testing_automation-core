@@ -7,11 +7,8 @@ import { ImageSnapshot } from "../components/base-image-locator";
 import { BaseElementLocator } from "../components/base-element-locator";
 
 export class GameGuides {
-    game: BaseGame;
-    player: BasePlayer;
-    options: IBaseOptions;
 
-    constructor(game: BaseGame, player: BasePlayer, options: IBaseOptions) {
+    constructor(protected game: BaseGame,protected player: BasePlayer,protected options: IBaseOptions) {
         this.game = game;
         this.player = player;
         this.options = options;
