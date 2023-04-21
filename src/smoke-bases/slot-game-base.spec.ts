@@ -2,7 +2,7 @@ import { GameEvent } from "../_shared";
 import { test, BasePlayer, BaseGame } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
-import { GameGuides } from "../e2e-bases/game-guides.spec";
+import { gameGuideTests } from "../e2e-bases/features/game-guides.spec";
 
 export interface SlotGameOptions extends IBaseOptions {
     placeBetChoices: string[];
@@ -54,19 +54,15 @@ export class SlotGameBase {
         });
     }
 
-    protected guideTests() {
-        const guides = new GameGuides(this.options);
-        guides.tests(this.game);
-    }
-
     start(): void {
-        const self = this;
+        test.beforeAll(async ({ baseGame }) => {
+            this.game = baseGame;
+            this.player = new BasePlayer(this.game);
+        });
 
         test.beforeEach(async ({}, testInfo) => {
             testInfo.snapshotPath = (name: string) => {
-                const snapshotPath = this.options.snapshotFolderPath + "-snapshots/" + name;
-
-                return snapshotPath;
+                return `${this.options.snapshotFolderPath}-snapshots/${name}`;
             };
         });
 
@@ -76,15 +72,8 @@ export class SlotGameBase {
         });
 
         test.describe.serial(`${this.options.gameConfiguration.name} Smoke Tests`, () => {
-            test.beforeAll(async ({ baseGame }) => {
-                this.game = baseGame;
-                this.player = new BasePlayer(this.game);
-
-                self.game = baseGame;
-                self.player = this.player;
-            });
-
             this.runScenario();
+            gameGuideTests(this.game, this.options.gameConfiguration.maxTimeout);
         });
     }
 
@@ -92,6 +81,5 @@ export class SlotGameBase {
         this.inGameOddsTests();
         this.placeBetAndSettleTests();
         this.ticketHistoryTests();
-        this.guideTests();
     }
 }
