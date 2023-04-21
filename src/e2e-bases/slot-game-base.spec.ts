@@ -5,7 +5,6 @@ import { IBaseOptions } from "./base-options";
 import { CSLocatorNames } from "../components/base-classic-slot-locator";
 import { GameGuides } from "../e2e-bases/game-guides.spec";
 
-
 const timeout = 3000;
 export interface SlotGameOptions extends IBaseOptions {
     placeBetChoices: string[];
@@ -164,7 +163,7 @@ export class SlotGameBase {
 
             const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: CSLocatorNames.lblBetLevel1 };
             await clickTurbo(this.game);
-            await this.player.selectPayline(CSLocatorNames.btnPayline1)
+            await this.player.selectPayline(CSLocatorNames.btnPayline1);
             await this.player.selectBetStake(bet.amount);
 
             // Act
@@ -307,7 +306,7 @@ export class SlotGameBase {
     protected ticketHistoryTests() {
         test("AND player could open history popup", async () => {
             // Act 1
-            await this.game.clickHistory()
+            await this.game.clickHistory();
             await this.game.captureLocator(CSLocatorNames.lblHistoryFirstRow);
 
             // Assert 1
@@ -327,8 +326,8 @@ export class SlotGameBase {
     }
 
     protected guideTests() {
-        const guides = new GameGuides(this.game, this.player, this.options);
-        guides.tests();
+        const guides = new GameGuides(this.options);
+        guides.tests(this.game);
     }
 
     start(): void {

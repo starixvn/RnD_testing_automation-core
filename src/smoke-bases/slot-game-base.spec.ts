@@ -55,8 +55,8 @@ export class SlotGameBase {
     }
 
     protected guideTests() {
-        const guides = new GameGuides(this.game, this.player, this.options);
-        guides.tests();
+        const guides = new GameGuides(this.options);
+        guides.tests(this.game);
     }
 
     start(): void {

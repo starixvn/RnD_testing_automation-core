@@ -1,27 +1,21 @@
-import { test, BasePlayer, BaseGame } from "../components";
+import { test, BaseGame, BaseElementLocator, CSLocatorNames, ImageSnapshot } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
-import { CSLocatorNames } from "../components/base-classic-slot-locator";
 import { GuideLocator } from "../auth/locators";
-import { ImageSnapshot } from "../components/base-image-locator";
-import { BaseElementLocator } from "../components/base-element-locator";
 
 export class GameGuides {
-
-    constructor(protected game: BaseGame,protected player: BasePlayer,protected options: IBaseOptions) {
-        this.game = game;
-        this.player = player;
+    constructor(protected options: IBaseOptions) {
         this.options = options;
     }
 
-    tests() {
+    tests(game: BaseGame) {
         test("AND player could open guide and clarify appropriate content", async () => {
             // Arrange
             test.setTimeout(this.options.gameConfiguration.maxTimeout);
-            await this.game.clickGuide();
+            await game.clickGuide();
 
             // Act
-            const guideContents = await this.getFrameContent();
+            const guideContents = await this.getFrameContent(game);
 
             // Guide locator "xpath=//*[@id='container-guide']//li[@class='guide-item']"
 
@@ -30,17 +24,17 @@ export class GameGuides {
                 expect(content.image).toMatchSnapshot(content.name);
             });
 
-            await this.game.clickLocator(CSLocatorNames.btnClosePopup);
+            await game.clickLocator(CSLocatorNames.btnClosePopup);
         });
     }
 
-    async getFrameContent(): Promise<ImageSnapshot[]> {
+    async getFrameContent(game: BaseGame): Promise<ImageSnapshot[]> {
         const images = new Array<ImageSnapshot>();
-        const guidepages = await this.game.getCountFrameLocator(GuideLocator.totalPages);
+        const guidepages = await game.getCountFrameLocator(GuideLocator.totalPages);
 
         for (let index = 1; index <= guidepages; index++) {
             const contentFrame = new BaseElementLocator(`guide-${index}`, `xpath=//*[@id='container-guide']//li[@class='guide-item'][${index}]`);
-            const contentImage = await contentFrame.snapshot(this.game.page);
+            const contentImage = await contentFrame.snapshot(game.page);
 
             images.push(contentImage);
         }
