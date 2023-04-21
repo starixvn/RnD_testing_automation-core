@@ -1,3 +1,10 @@
+## [1.1.1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.1.0...v1.1.1) (2023-04-21)
+
+
+### Bug Fixes
+
+* increase timeout for fist loading ([535da16](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/535da169ed80cdeafec7fdc944a1f43dc4919009))
+
 # [1.1.0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.0.4...v1.1.0) (2023-04-05)
 
 
