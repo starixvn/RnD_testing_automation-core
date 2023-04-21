@@ -5,7 +5,7 @@ import { ssoToGame, getConfig } from "./../auth/auth";
 import { ImageLocator, ImageSnapshot } from "./base-image-locator";
 import { GameConfiguration } from "./game-configuration";
 import { Tesseract } from "tesseract.ts";
-import { CSLocatorNames } from "../components/base-classic-slot-locator";
+import { CSLocatorNames } from "./base-classic-slot-locator";
 
 export class BaseGame {
     readonly LobbyTimeout: number = 60000;
@@ -162,12 +162,12 @@ export class BaseGame {
 
     async clickToSlotsChoice(choice: string): Promise<void> {
         await this.clickLocator("choiceMenu");
-        await this.clickLocator("clearChoices",1000);
+        await this.clickLocator("clearChoices", 1000);
         await this.clickLocator(`${choice}Choice`);
-        await this.clickLocator("submitPayline",1000);
+        await this.clickLocator("submitPayline", 1000);
     }
 
-    async clickLocator(element: string, wait= 500): Promise<void> {
+    async clickLocator(element: string, wait = 500): Promise<void> {
         const locator = this.locator(element);
         if (locator) {
             await locator.click(this.page);
@@ -253,7 +253,7 @@ export class BaseGame {
     }
 
     async clickOutSide(): Promise<void> {
-        const locator = this.locator("outside")||this.locator(CSLocatorNames.btnClosePopup);
+        const locator = this.locator("outside") || this.locator(CSLocatorNames.btnClosePopup);
         if (locator) {
             await locator.click(this.page);
         }
