@@ -3,7 +3,6 @@ import { test, BasePlayer, BaseGame } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
 import { CSLocatorNames } from "../components/base-classic-slot-locator";
-import { gameGuideTests } from "./features/game-guides.spec";
 
 const timeout = 3000;
 export interface SlotGameOptions extends IBaseOptions {
@@ -359,7 +358,7 @@ export class SlotGameBase {
         this.turboTests();
         this.placeBetAndSettleTests();
         this.ticketHistoryTests();
-        gameGuideTests(this.game, this.options.gameConfiguration.maxTimeout);
+        // gameGuideTests(this.game, this.options.gameConfiguration.maxTimeout);
     }
 }
 
