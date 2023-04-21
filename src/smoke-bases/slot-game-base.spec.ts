@@ -60,6 +60,8 @@ export class SlotGameBase {
     }
 
     start(): void {
+        const self = this;
+
         test.beforeEach(async ({}, testInfo) => {
             testInfo.snapshotPath = (name: string) => {
                 const snapshotPath = this.options.snapshotFolderPath + "-snapshots/" + name;
@@ -77,6 +79,9 @@ export class SlotGameBase {
             test.beforeAll(async ({ baseGame }) => {
                 this.game = baseGame;
                 this.player = new BasePlayer(this.game);
+
+                self.game = baseGame;
+                self.player = this.player;
             });
 
             this.runScenario();
