@@ -9,7 +9,7 @@ import { CSLocatorNames } from "../components/base-classic-slot-locator";
 import { expect } from "@playwright/test";
 
 export class BaseGame {
-    readonly LobbyTimeout: number = 50000;
+    readonly LobbyTimeout: number = 60000;
     readonly BetBoardPostfix: string = "BetBoard";
 
     readonly page: Page;
