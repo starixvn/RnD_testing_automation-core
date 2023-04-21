@@ -5,7 +5,7 @@ import { GuideLocator } from "../../auth/locators";
 export class GameGuides {
     protected game: BaseGame;
 
-    constructor(game: BaseGame) {
+    init(game: BaseGame) {
         this.game = game;
     }
 

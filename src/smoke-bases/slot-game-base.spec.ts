@@ -12,7 +12,7 @@ export interface SlotGameOptions extends IBaseOptions {
 export class SlotGameBase {
     protected game: BaseGame;
     protected player: BasePlayer;
-    protected gameGuides: GameGuides;
+    protected gameGuides: GameGuides = new GameGuides();
 
     constructor(protected options: SlotGameOptions) {}
 
@@ -59,7 +59,7 @@ export class SlotGameBase {
         test.beforeAll(async ({ baseGame }) => {
             this.game = baseGame;
             this.player = new BasePlayer(this.game);
-            this.gameGuides = new GameGuides(this.game);
+            this.gameGuides.init(this.game);
         });
 
         test.beforeEach(async ({}, testInfo) => {
