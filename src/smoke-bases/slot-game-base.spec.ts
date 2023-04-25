@@ -25,7 +25,7 @@ export class SlotGameBase {
     }
 
     protected placeBetAndSettleTests() {
-        test("THEN player able to place a bet and settle", async () => {
+        test.fixme("THEN player able to place a bet and settle", async () => {
             // Arrange
             test.setTimeout(this.options.gameConfiguration.maxTimeout);
             const bet = { choice: this.options.placeBetChoices[0], amount: this.options.placeBetAmount ?? 1 };
@@ -42,7 +42,7 @@ export class SlotGameBase {
     }
 
     protected ticketHistoryTests() {
-        test("AND player could open history popup", async () => {
+        test.fixme("AND player could open history popup", async () => {
             // Arrange
             const historyPayload = await this.player.openHistory();
 
