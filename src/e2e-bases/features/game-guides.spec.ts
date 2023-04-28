@@ -10,24 +10,19 @@ export class GameGuides {
     }
 
     tests(timeout: number) {
-        test.describe("AND player could open guide and clarify appropriate content", async () => {
-            let guideContents: ImageSnapshot[] = [];
+        test("AND player could open guide and clarify appropriate content", async () => {
+            // Arrange
+            test.setTimeout(timeout);
+            await this.game.clickGuide();
 
-            test.beforeAll(async () => {
-                // Arrange
-                test.setTimeout(timeout);
-                await this.game.clickGuide(1000);
+            // Act
+            const guideContents = await this.getFrameContent();
+            await this.game.clickLocator(CSLocatorNames.btnClosePopup);
 
-                // Act
-                guideContents = await this.getFrameContent();
-                await this.game.clickLocator(CSLocatorNames.btnClosePopup);
+            // Assert
+            guideContents.forEach((content) => {
+                expect(content.image).toMatchSnapshot(content.name);
             });
-
-            for (let i = 1; i < guideContents.length; i++) {
-                test(`Then guide part ${i} must match snapshot `, async () => {
-                    expect(guideContents[i].image).toMatchSnapshot(guideContents[i].name);
-                });
-            }
         });
     }
 
@@ -36,7 +31,7 @@ export class GameGuides {
         const guidepages = await this.game.getCountFrameLocator(GuideLocator.totalPages);
 
         for (let index = 1; index <= guidepages; index++) {
-            const contentFrame = new BaseElementLocator(`guide-${index}`, `xpath=//*[@id='container-guide']//li[@class='guide-item'][${index}]`);
+            const contentFrame = new BaseElementLocator(`guide-${index}`, `${GuideLocator.totalPages}[${index}]`);
             const contentImage = await contentFrame.snapshot(this.game.page);
 
             images.push(contentImage);
