@@ -2,7 +2,7 @@ import { GameEvent } from "../_shared";
 import { test, BasePlayer, BaseGame } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
-import { GameGuides } from "../e2e-bases/features/game-guides.spec";
+import { GameGuides } from "../game-components/guides/guides.spec";
 
 export interface SlotGameOptions extends IBaseOptions {
     placeBetChoices: string[];

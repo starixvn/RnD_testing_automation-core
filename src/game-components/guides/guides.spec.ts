@@ -1,6 +1,6 @@
 import { test, BaseGame, BaseElementLocator, CSLocatorNames, ImageSnapshot } from "../../components";
 import { expect } from "../../expects";
-import { GuideLocator } from "../../auth/locators";
+import { GuideLocator } from "./guides-locators";
 
 export class GameGuides {
     protected game: BaseGame;
@@ -28,10 +28,10 @@ export class GameGuides {
 
     async captureGuideContent(): Promise<ImageSnapshot[]> {
         const images = new Array<ImageSnapshot>();
-        const guidepages = await this.game.getCountFrameLocator(GuideLocator.totalPages);
+        const guidepages = await this.game.getCountFrameLocator(GuideLocator.xpathItem);
 
         for (let index = 1; index <= guidepages; index++) {
-            const contentFrame = new BaseElementLocator(`guide-${index}`, `${GuideLocator.totalPages}[${index}]`);
+            const contentFrame = new BaseElementLocator(`guide-${index}`, `${GuideLocator.xpathItem}[${index}]`);
             const contentImage = await contentFrame.snapshot(this.game.page);
 
             images.push(contentImage);
