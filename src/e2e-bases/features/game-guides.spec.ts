@@ -10,22 +10,24 @@ export class GameGuides {
     }
 
     tests(timeout: number) {
-        test("AND player could open guide and clarify appropriate content", async () => {
-            // Arrange
-            test.setTimeout(timeout);
-            await this.game.clickGuide();
+        test.describe("AND player could open guide and clarify appropriate content", async () => {
+            let guideContents: ImageSnapshot[] = [];
 
-            // Act
-            const guideContents = await this.getFrameContent();
+            test.beforeAll(async () => {
+                // Arrange
+                test.setTimeout(timeout);
+                await this.game.clickGuide(1000);
 
-            // Guide locator "xpath=//*[@id='container-guide']//li[@class='guide-item']"
-
-            // Assert
-            guideContents.forEach((content) => {
-                expect(content.image).toMatchSnapshot(content.name);
+                // Act
+                guideContents = await this.getFrameContent();
+                await this.game.clickLocator(CSLocatorNames.btnClosePopup);
             });
 
-            await this.game.clickLocator(CSLocatorNames.btnClosePopup);
+            for (let i = 1; i < guideContents.length; i++) {
+                test(`Then guide part ${i} must match snapshot `, async () => {
+                    expect(guideContents[i].image).toMatchSnapshot(guideContents[i].name);
+                });
+            }
         });
     }
 
