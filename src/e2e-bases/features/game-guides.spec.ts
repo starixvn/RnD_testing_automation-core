@@ -16,7 +16,7 @@ export class GameGuides {
             await this.game.clickGuide();
 
             // Act
-            const guideContents = await this.getFrameContent();
+            const guideContents = await this.captureGuideContent();
             await this.game.clickLocator(CSLocatorNames.btnClosePopup);
 
             // Assert
@@ -26,7 +26,7 @@ export class GameGuides {
         });
     }
 
-    async getFrameContent(): Promise<ImageSnapshot[]> {
+    async captureGuideContent(): Promise<ImageSnapshot[]> {
         const images = new Array<ImageSnapshot>();
         const guidepages = await this.game.getCountFrameLocator(GuideLocator.totalPages);
 
