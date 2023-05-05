@@ -239,6 +239,7 @@ export class SlotGameBase {
             await this.player.selectBetStake(CSLocatorNames.lblBetLevel1);
 
             //Act
+            await this.game.waitForTimeout(timeout)
             await this.game.keyboardPress("Space");
             const settledResults = await this.game.waitForSettlement();
 
@@ -345,6 +346,7 @@ export class SlotGameBase {
             test.beforeAll(async ({ baseGame }) => {
                 this.game = baseGame;
                 this.player = new BasePlayer(this.game);
+                this.gameGuides.init(this.game);
             });
 
             this.runScenario();
