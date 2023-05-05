@@ -163,7 +163,7 @@ export class BaseGame {
     async clickToSlotsChoice(choice: string): Promise<void> {
         await this.clickLocator("choiceMenu");
         await this.clickLocator("clearChoices", 1000);
-        await this.clickLocator(`${choice}Choice`);
+        await this.clickLocator(`${choice}Choice`, 1000);
         await this.clickLocator("submitPayline", 1000);
     }
 
