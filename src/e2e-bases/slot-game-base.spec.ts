@@ -3,6 +3,7 @@ import { test, BasePlayer, BaseGame } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
 import { CSLocatorNames } from "../components/base-classic-slot-locator";
+import { GameGuides } from "../game-components/guides/guides.spec";
 
 const timeout = 3000;
 export interface SlotGameOptions extends IBaseOptions {
@@ -13,6 +14,8 @@ export interface SlotGameOptions extends IBaseOptions {
 export class SlotGameBase {
     game: BaseGame;
     player: BasePlayer;
+    protected gameGuides: GameGuides = new GameGuides();
+
 
     constructor(protected options: SlotGameOptions) {}
 
@@ -99,7 +102,7 @@ export class SlotGameBase {
 
         test("Verify submit bet button is disabled when no choice is selected", async () => {
             // Act
-            await this.game.clickLocator(CSLocatorNames.btnClearPayline);
+            await this.game.clickLocator(CSLocatorNames.btnClearPayline,1000);
             const imgConfirmPaylineDisabled = await this.game.capture(CSLocatorNames.imgConfirmPaylineDisabled);
 
             //Assert
@@ -305,7 +308,7 @@ export class SlotGameBase {
     protected ticketHistoryTests() {
         test("AND player could open history popup", async () => {
             // Act 1
-            await this.game.clickHistory();
+            await this.game.clickHistory(1000);
             await this.game.captureLocator(CSLocatorNames.lblHistoryFirstRow);
 
             // Assert 1
@@ -358,7 +361,7 @@ export class SlotGameBase {
         this.turboTests();
         this.placeBetAndSettleTests();
         this.ticketHistoryTests();
-        // gameGuideTests(this.game, this.options.gameConfiguration.maxTimeout);
+        this.gameGuides.tests(this.options.gameConfiguration.maxTimeout);
     }
 }
 
@@ -405,7 +408,6 @@ const getDataFistRowHistory = async (game: BaseGame, elementname: string = CSLoc
         return {
             bettime: data[0].toString(),
             betdate: data[1].toString(),
-            // roundID: tempdata[2].toString().replace(/[^0-9.]/g, ""), // can not getn roundID in new slots games
             bet: data[2].toString().replace(/[^0-9.]/g, ""),
             line: data[3].toString().replace(/[^0-9.]/g, ""),
             totalbet: data[4].toString().replace(/[^0-9.]/g, ""),
