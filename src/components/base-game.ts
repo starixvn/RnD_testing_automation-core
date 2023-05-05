@@ -199,7 +199,7 @@ export class BaseGame {
 
         if (hamburgerMenu) {
             await hamburgerMenu.click(this.page);
-            await this.waitForTimeout(waitTime);
+            await this.waitForTimeout(500);
         }
 
         if (guideMenu) {
