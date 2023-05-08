@@ -102,7 +102,7 @@ export class SlotGameBase {
 
         test("Verify submit bet button is disabled when no choice is selected", async () => {
             // Act
-            await this.game.clickLocator(CSLocatorNames.btnClearPayline,1000);
+            await this.game.clickLocator(CSLocatorNames.btnClearPayline,timeout);
             const imgConfirmPaylineDisabled = await this.game.capture(CSLocatorNames.imgConfirmPaylineDisabled);
 
             //Assert
