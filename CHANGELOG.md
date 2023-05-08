@@ -1,3 +1,15 @@
+# [1.2.0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.1.1...v1.2.0) (2023-05-08)
+
+
+### Bug Fixes
+
+* comment selectCurrencyGroup ([4f2d542](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/4f2d54201d4cdf1a72e356ff6a2828e15ad2dbf0))
+
+
+### Features
+
+* select group currency default ([24e36bc](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/24e36bcae7019a82f5129f12b92bd2278a256bb6))
+
 ## [1.1.1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.1.0...v1.1.1) (2023-04-21)
 
 
