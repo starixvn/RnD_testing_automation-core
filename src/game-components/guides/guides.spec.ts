@@ -13,7 +13,7 @@ export class GameGuides {
         test("AND player could open guide and clarify appropriate content", async () => {
             // Arrange
             test.setTimeout(timeout);
-            await this.game.clickGuide();
+            await this.game.clickGuide(3000);
 
             // Act
             const guideContents = await this.captureGuideContent();
