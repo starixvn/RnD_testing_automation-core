@@ -65,12 +65,21 @@ const loginMemberSite = async (page: Page, config: any, env: string, playerId: s
     await goToGameLobby(page, config, productId);
 
     if (mustSelectCurrencyGroup(env)) {
-        await selectCurrencyGroup(page, config.groupCurrencyId, timeout);
+        await selectDefaultCurrencyGroup(page,timeout)
     }
 };
 
 const selectCurrencyGroup = async (page: Page, groupCurrencyId: string, timeout: number = 15000) => {
+    //feature-link https://git3.nexdev.net/l1/user-service/-/issues/67
+    // Only use this function when there has a need to choose a currency other than USD
+    await page.click(GroupCurrencyLocator.specificCheckbox);
     await page.selectOption(GroupCurrencyLocator.currencyGroupDropdown, { value: groupCurrencyId });
+    await page.click(GroupCurrencyLocator.submitButton);
+
+    await page.waitForLoadState("domcontentloaded", { timeout });
+};
+
+const selectDefaultCurrencyGroup = async (page: Page,  timeout: number = 15000) => {
     await page.click(GroupCurrencyLocator.submitButton);
 
     await page.waitForLoadState("domcontentloaded", { timeout });

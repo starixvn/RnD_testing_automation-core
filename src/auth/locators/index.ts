@@ -45,4 +45,5 @@ export enum PRODLocator {
 export enum GroupCurrencyLocator {
     currencyGroupDropdown = 'xpath=//*/select[@id="group"]',
     submitButton = 'xpath=//input[@value="Submit"]',
+    specificCheckbox = 'id=groupTypeSpecific'
 }
