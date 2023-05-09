@@ -40,34 +40,38 @@ start(): void {
         this.gameGuides.tests(this.options.gameConfiguration.maxTimeout, lang);
     }
 
+    protected switchlangcode(langCode: string) {
+             test(`Login by langCode ${langCode}`, async () => {
+                process.env.npm_config_langopt = langCode;
+                langopt = langCode;
+                this.game.login()
+            });
+        };
+
     protected runScenario(){
         if(langopt == "all" && process.env.npm_config_env?.includes("local")){
             this.guideTest("vn");
-            this.loginByLanguage(this.game ,"en");
+            this.switchlangcode("en");
             this.guideTest("en");
-            this.loginByLanguage(this.game ,"tw");
+            this.switchlangcode("tw");
             this.guideTest("tw");
-            this.loginByLanguage(this.game ,"id");
+            this.switchlangcode("id");
             this.guideTest("id");
-            this.loginByLanguage(this.game ,"th");
+            this.switchlangcode("th");
             this.guideTest("th");
-            this.loginByLanguage(this.game ,"cn");
+            this.switchlangcode("cn");
             this.guideTest("cn");
         }
         else if (langopt == "all"&& process.env.npm_config_env?.includes("pro")){
             this.guideTest("vn");
-            this.loginByLanguage(this.game ,"en");
+            this.switchlangcode("en");
             this.guideTest("en");
-            this.loginByLanguage(this.game ,"tw");
+            this.switchlangcode("tw");
             this.guideTest("tw");
         }
         else
             this.guideTest(langopt);
     }
 
-    protected async loginByLanguage(game: BaseGame, lang: string = "vn") {
-        process.env.npm_config_langopt = lang;
-        langopt = lang;
-        await game.login();
-    }
 }
+
