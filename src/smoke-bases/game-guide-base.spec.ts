@@ -43,31 +43,31 @@ start(): void {
     protected runScenario(){
         if(langopt == "all" && process.env.npm_config_env?.includes("local")){
             this.guideTest("vn");
-            this.loginByLanguage("en");
+            this.loginByLanguage(this.game ,"en");
             this.guideTest("en");
-            this.loginByLanguage("tw");
+            this.loginByLanguage(this.game ,"tw");
             this.guideTest("tw");
-            this.loginByLanguage("id");
+            this.loginByLanguage(this.game ,"id");
             this.guideTest("id");
-            this.loginByLanguage("th");
+            this.loginByLanguage(this.game ,"th");
             this.guideTest("th");
-            this.loginByLanguage("cn");
+            this.loginByLanguage(this.game ,"cn");
             this.guideTest("cn");
         }
         else if (langopt == "all"&& process.env.npm_config_env?.includes("pro")){
             this.guideTest("vn");
-            this.loginByLanguage("en");
+            this.loginByLanguage(this.game ,"en");
             this.guideTest("en");
-            this.loginByLanguage("tw");
+            this.loginByLanguage(this.game ,"tw");
             this.guideTest("tw");
         }
         else
             this.guideTest(langopt);
     }
 
-    protected async loginByLanguage(lang: string = "vn") {
+    protected async loginByLanguage(game: BaseGame, lang: string = "vn") {
         process.env.npm_config_langopt = lang;
         langopt = lang;
-        await this.game.login();
+        await game.login();
     }
 }
