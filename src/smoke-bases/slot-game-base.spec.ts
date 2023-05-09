@@ -2,7 +2,6 @@ import { GameEvent } from "../_shared";
 import { test, BasePlayer, BaseGame } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
-import { GameGuides } from "../game-components/guides/guides.spec";
 
 export interface SlotGameOptions extends IBaseOptions {
     placeBetChoices: string[];
@@ -12,7 +11,6 @@ export interface SlotGameOptions extends IBaseOptions {
 export class SlotGameBase {
     protected game: BaseGame;
     protected player: BasePlayer;
-    protected gameGuides: GameGuides = new GameGuides();
 
     constructor(protected options: SlotGameOptions) {}
 
@@ -61,7 +59,6 @@ export class SlotGameBase {
         test.beforeAll(async ({ baseGame }) => {
             this.game = baseGame;
             this.player = new BasePlayer(this.game);
-            this.gameGuides.init(this.game);
         });
 
         test.beforeEach(async ({}, testInfo) => {
@@ -84,6 +81,5 @@ export class SlotGameBase {
         this.inGameOddsTests();
         this.placeBetAndSettleTests();
         this.ticketHistoryTests();
-        this.gameGuides.tests(this.options.gameConfiguration.maxTimeout);
     }
 }
