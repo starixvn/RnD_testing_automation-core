@@ -1,7 +1,6 @@
 import { test, BaseGame, BaseElementLocator, CSLocatorNames, ImageSnapshot } from "../../components";
 import { expect } from "../../expects";
 import { GuideLocator } from "./guides-locators";
-
 export class GameGuides {
     protected game: BaseGame;
 
@@ -9,8 +8,8 @@ export class GameGuides {
         this.game = game;
     }
 
-    tests(timeout: number) {
-        test("AND player could open guide and clarify appropriate content", async () => {
+    tests(timeout: number, lang : string = "vn") {
+        test(`AND player could open guide and clarify appropriate content ${lang}`, async () => {
             // Arrange
             test.setTimeout(timeout);
             await this.game.clickGuide(3000);
