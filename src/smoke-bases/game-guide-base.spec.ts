@@ -1,4 +1,4 @@
-import { test, BasePlayer, BaseGame, BaseElementLocator, CSLocatorNames, ImageSnapshot } from "../components";
+import { test, BasePlayer, BaseGame } from "../components";
 import { IBaseOptions } from "./base-options";
 import { GameGuides } from "../game-components/guides/guides.spec";
 import { expect } from "../expects";
