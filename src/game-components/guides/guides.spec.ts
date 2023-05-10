@@ -8,8 +8,8 @@ export class GameGuides {
         this.game = game;
     }
 
-    tests(timeout: number, lang : string = "vn") {
-        test(`AND player could open guide and clarify appropriate content ${lang}`, async () => {
+    tests(timeout: number) {
+        test(`AND player could open guide and clarify appropriate content`, async () => {
             // Arrange
             test.setTimeout(timeout);
             await this.game.clickGuide(3000);

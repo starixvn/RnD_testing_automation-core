@@ -1,9 +1,10 @@
 import { test, BasePlayer, BaseGame } from "../components";
 import { IBaseOptions } from "./base-options";
 import { GameGuides } from "../game-components/guides/guides.spec";
+import { expect } from "../expects";
 
-let langopt = process.env.npm_config_langopt ?? "vn";
-if (process.env.npm_config_langopt == "all"){process.env.npm_config_langopt = "vn"}
+let langcode = process.env.npm_config_langcode ?? "vn";
+if (process.env.npm_config_langcode == "all"){process.env.npm_config_langcode = "vn"} //if test for all languagues, do test for Vietnamese first
 
 export class GameGuideBase {
     game: BaseGame;
@@ -16,7 +17,7 @@ export class GameGuideBase {
 start(): void {
     test.beforeEach(async ({}, testInfo) => {
         testInfo.snapshotPath = (name: string) => {
-            const snapshotPath = (langopt === "vn")? this.options.snapshotFolderPath + "-snapshots/" + name : this.options.snapshotFolderPath + "-snapshots/" + langopt+'/'+ name
+            const snapshotPath = (langcode === "vn")? this.options.snapshotFolderPath + "-snapshots/" + name : this.options.snapshotFolderPath + "-snapshots/" + langcode+'/'+ name
             return snapshotPath;
         };
     });
@@ -37,41 +38,47 @@ start(): void {
     });}
 
     protected guideTest(lang:string = "vn") {
-        this.gameGuides.tests(this.options.gameConfiguration.maxTimeout, lang);
+        test(`AND player could open guide and clarify appropriate content in ${lang}`, async () => {
+        // Relogin with the next languague
+        if (lang != process.env.npm_config_langcode){ 
+            langcode = lang;
+            process.env.npm_config_langcode= lang;
+            this.game.login();
+        }
+        // Arrange
+        test.setTimeout(this.game.gameConfiguration.maxTimeout);
+        await this.game.clickGuide(3000);
+         // Act
+         const guideContents = await this.gameGuides.captureGuideContent();
+         //await this.game.clickLocator(CSLocatorNames.btnClosePopup);
+
+         // Assert
+         guideContents.forEach((content) => {
+             expect(content.image).toMatchSnapshot(content.name);
+         });
+        });
     }
 
-    protected switchlangcode(langCode: string) {
-             test(`Login by langCode ${langCode}`, async () => {
-                process.env.npm_config_langopt = langCode;
-                langopt = langCode;
-                this.game.login()
-            });
-        };
 
     protected runScenario(){
-        if(langopt == "all" && process.env.npm_config_env?.includes("local")){
+        if(langcode == "all" && process.env.npm_config_env?.includes("local")){
             this.guideTest("vn");
-            this.switchlangcode("en");
             this.guideTest("en");
-            this.switchlangcode("tw");
             this.guideTest("tw");
-            this.switchlangcode("id");
             this.guideTest("id");
-            this.switchlangcode("th");
             this.guideTest("th");
-            this.switchlangcode("cn");
             this.guideTest("cn");
         }
-        else if (langopt == "all"&& process.env.npm_config_env?.includes("pro")){
+        else if (langcode == "all"&& process.env.npm_config_env?.includes("pro")){
             this.guideTest("vn");
-            this.switchlangcode("en");
             this.guideTest("en");
-            this.switchlangcode("tw");
             this.guideTest("tw");
         }
         else
-            this.guideTest(langopt);
+            this.guideTest(langcode);
     }
 
 }
+
+
 
