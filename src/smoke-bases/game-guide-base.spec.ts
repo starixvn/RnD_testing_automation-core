@@ -2,6 +2,7 @@ import { test, BasePlayer, BaseGame } from "../components";
 import { IBaseOptions } from "./base-options";
 import { GameGuides } from "../game-components/guides/guides.spec";
 import { expect } from "../expects";
+import { LobbyLocator } from "../auth/locators";
 
 let langcode = process.env.npm_config_langcode ?? "vn";
 if (process.env.npm_config_langcode == "all"){process.env.npm_config_langcode = "vn"} //if test for all languagues, do test for Vietnamese first
@@ -38,7 +39,7 @@ start(): void {
     });}
 
     protected guideTest(lang:string = "vn") {
-        test(`AND player could open guide and clarify appropriate content in ${lang}`, async () => {
+        test("AND player could open guide and clarify appropriate content in " + LobbyLocator[`${lang}LangOption`], async () => {
         // Relogin with the next languague
         if (lang != process.env.npm_config_langcode){ 
             langcode = lang;
