@@ -14,25 +14,28 @@ export enum Environment {
 
 export const ssoToGame = async (page: Page, gameId: number, playerId: string, productId: string, env: string): Promise<void> => {
     const config = getConfig();
-    const langopt = process.env.npm_config_langopt ?? "vn";
-
+    const langCode = process.env.npm_config_langCode ?? "vn";
+    const projectCode = process.env.npm_config_project ?? "sc";
     if (playerId === "" || productId === "") {
         throw new Error(`Missing Test Account or ProductId for game id ${gameId}!!!`);
     }
 
     if (env.includes("local")) {
-        const memberSiteLink = `${config.memberSite}?obCustId=${playerId}&balance=20000`;
+        const memberSiteLink =
+            projectCode === "sc"
+                ? `${config.memberSite}?obCustId=${playerId}&balance=20000`
+                : `${config.vgmemberSite}?obCustId=${playerId}&balance=20000`;
         await page.goto(memberSiteLink);
         console.log("Login Local", memberSiteLink);
         await page.click(LobbyLocator.advancelbl);
-        await page.locator(LobbyLocator.langDropdown).selectOption(LobbyLocator[`${langopt}LangOption`]);
+        await page.locator(LobbyLocator.langDropdown).selectOption(LobbyLocator[`${langCode}LangOption`]);
         await page.click(LobbyLocator.tokenBtn);
         await page.waitForTimeout(500);
         const ssoLink = (await page.locator(LobbyLocator.ssoLink).textContent()) ?? "";
 
         await page.goto(`${ssoLink.replace("gameId=0", `gameId=${gameId}`)}`);
     } else {
-        await loginMemberSite(page, config, env, playerId, productId, langopt);
+        await loginMemberSite(page, config, env, playerId, productId, langCode, projectCode);
     }
 };
 
@@ -42,11 +45,12 @@ export const getConfig = (): any => {
     return configs[env];
 };
 
-const loginMemberSite = async (page: Page, config: any, env: string, playerId: string, productId: string, langopt: string) => {
+const loginMemberSite = async (page: Page, config: any, env: string, playerId: string, productId: string, langCode: string, projectCode: string) => {
     const timeout = config.lobbyTimeout;
+    const memberSiteLink = projectCode === "sc" ? config.memberSite: config.vgmemberSite;
 
-    await page.goto(config.memberSite);
-    console.log("Login Member Site: ", config.memberSite);
+    await page.goto(memberSiteLink);
+    console.log("Login Member Site: ", memberSiteLink);
     await page.waitForLoadState("domcontentloaded", { timeout });
 
     switch (env) {
@@ -55,7 +59,7 @@ const loginMemberSite = async (page: Page, config: any, env: string, playerId: s
             break;
 
         case Environment.PROD:
-            await loginPROD(page, playerId, config.pwd, langopt, timeout);
+            await loginPROD(page, playerId, config.pwd, langCode, timeout);
             break;
 
         default:
@@ -85,13 +89,13 @@ const loginUAT = async (page: Page, playerId: string, pwd: string, timeout: numb
     await page.waitForLoadState("domcontentloaded", { timeout });
 };
 
-const loginPROD = async (page: Page, accountId: string, pwd: string, langopt: string, timeout: number = 15000) => {
+const loginPROD = async (page: Page, accountId: string, pwd: string, langCode: string, timeout: number = 15000) => {
     await page.fill(PRODLocator.memberIdInput, accountId);
     await page.fill(PRODLocator.pwdInput, pwd);
     await page.click(PRODLocator.loginButton);
     await page.waitForLoadState("domcontentloaded", { timeout: timeout });
     await page.click(PRODLocator.langDropdown);
-    await page.click(PRODLocator[`${langopt}LangOption`]);
+    await page.click(PRODLocator[`${langCode}LangOption`]);
 };
 
 const loginSIT = async (page: Page, accountId: string, pwd: string, timeout: number = 15000) => {
