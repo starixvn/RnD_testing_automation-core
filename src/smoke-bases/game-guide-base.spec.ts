@@ -44,7 +44,7 @@ start(): void {
         if (lang != process.env.npm_config_langopt && lang != "vn"){  //do test for Vietnamese first so don't need to relogin
             langopt = lang;
             process.env.npm_config_langopt = lang;
-            this.game.login();
+            await this.game.login();
         }
         // Arrange
         test.setTimeout(this.game.gameConfiguration.maxTimeout);
@@ -62,7 +62,7 @@ start(): void {
 
 
     protected runScenario(){
-        if(langopt == "all" && process.env.npm_config_env?.includes("local")){
+        if(process.env.npm_config_langopt == "all" && process.env.npm_config_env?.includes("local")){
             this.guideTest("vn");
             this.guideTest("en");
             this.guideTest("tw");
@@ -70,7 +70,7 @@ start(): void {
             this.guideTest("th");
             this.guideTest("cn");
         }
-        else if (langopt == "all"){
+        else if (process.env.npm_config_langopt == "all"){
             this.guideTest("vn");
             this.guideTest("en");
             this.guideTest("tw");
