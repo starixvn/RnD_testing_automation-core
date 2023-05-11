@@ -12,10 +12,17 @@ export enum Environment {
     PROD = "prod",
 }
 
-export const ssoToGame = async (page: Page, gameId: number, playerId: string, productId: string, env: string): Promise<void> => {
+export const ssoToGame = async (
+    page: Page,
+    gameId: number,
+    playerId: string,
+    productId: string,
+    env: string,
+    projectCode: string
+): Promise<void> => {
     const config = getConfig();
     const langCode = process.env.npm_config_langCode ?? "vn";
-    const projectCode = process.env.npm_config_project ?? "sc";
+
     if (playerId === "" || productId === "") {
         throw new Error(`Missing Test Account or ProductId for game id ${gameId}!!!`);
     }

@@ -29,7 +29,14 @@ export class BaseGame {
 
     async login() {
         const env = (process.env.npm_config_env ?? "local").toLowerCase();
-        await ssoToGame(this.page, this.gameConfiguration.id, this.gameConfiguration.accounts[env], this.gameConfiguration.productId, env);
+        const projectCode = process.env.npm_config_project ?? "sc";
+        let account: string;
+        if (env.includes("local")) {
+            account = this.gameConfiguration.accounts[env];
+        } else {
+            account = projectCode === "sc" ? this.gameConfiguration.accounts[env] : this.gameConfiguration.accounts[`vg${env}`];
+        }
+        await ssoToGame(this.page, this.gameConfiguration.id, account, this.gameConfiguration.productId, env, projectCode);
         this.msgpack = getConfig().enabledMsgPack;
         this.page.on("websocket", async (ws) => {
             if (ws.url().includes(this.gameConfiguration.socketName ?? this.gameConfiguration.name.toLowerCase())) {
@@ -51,6 +58,7 @@ export class BaseGame {
                 });
             }
         });
+          // Log console output and wait for lobby timeout
         await this.logConsole();
         await this.page.waitForTimeout(this.LobbyTimeout);
     }
