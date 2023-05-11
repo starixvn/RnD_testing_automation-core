@@ -45,9 +45,18 @@ export const getConfig = (): any => {
     return configs[env];
 };
 
-const loginMemberSite = async (page: Page, config: any, env: string, playerId: string, productId: string, langCode: string, projectCode: string) => {
+const loginMemberSite = async (
+    page: Page,
+    config: any,
+    env: string,
+    playerId: string,
+    productId: string,
+    langCode: string,
+    projectCode: string
+) => {
     const timeout = config.lobbyTimeout;
-    const memberSiteLink = projectCode === "sc" ? config.memberSite: config.vgmemberSite;
+    const memberSiteLink = projectCode === "sc" ? config.memberSite : config.vgmemberSite;
+    const pwd = projectCode === "sc" ? config.pwd : config.vgpwd;
 
     await page.goto(memberSiteLink);
     console.log("Login Member Site: ", memberSiteLink);
@@ -55,15 +64,15 @@ const loginMemberSite = async (page: Page, config: any, env: string, playerId: s
 
     switch (env) {
         case Environment.UAT:
-            await loginUAT(page, playerId, config.pwd, timeout);
+            await loginUAT(page, playerId, pwd, timeout);
             break;
 
         case Environment.PROD:
-            await loginPROD(page, playerId, config.pwd, langCode, timeout);
+            await loginPROD(page, playerId, pwd, langCode, projectCode, timeout);
             break;
 
         default:
-            await loginSIT(page, playerId, config.pwd, timeout);
+            await loginSIT(page, playerId, pwd, timeout);
     }
 
     await goToGameLobby(page, config, productId);
@@ -89,13 +98,23 @@ const loginUAT = async (page: Page, playerId: string, pwd: string, timeout: numb
     await page.waitForLoadState("domcontentloaded", { timeout });
 };
 
-const loginPROD = async (page: Page, accountId: string, pwd: string, langCode: string, timeout: number = 15000) => {
-    await page.fill(PRODLocator.memberIdInput, accountId);
-    await page.fill(PRODLocator.pwdInput, pwd);
-    await page.click(PRODLocator.loginButton);
-    await page.waitForLoadState("domcontentloaded", { timeout: timeout });
-    await page.click(PRODLocator.langDropdown);
-    await page.click(PRODLocator[`${langCode}LangOption`]);
+const loginPROD = async (page: Page, accountId: string, pwd: string, langCode: string, projectCode: string, timeout: number = 15000) => {
+    if (projectCode === "sc") {
+        await page.fill(PRODLocator.memberIdInput, accountId);
+        await page.fill(PRODLocator.pwdInput, pwd);
+        await page.click(PRODLocator.loginButton);
+        await page.waitForLoadState("domcontentloaded", { timeout: timeout });
+        await page.click(PRODLocator.langDropdown);
+        await page.click(PRODLocator[`${langCode}LangOption`]);
+    } else {
+        await page.fill(PRODLocator.vgmemberIdInput, accountId);
+        await page.fill(PRODLocator.vgpwdInput, pwd);
+        await page.click(PRODLocator.vgloginButton);
+        await page.waitForLoadState("domcontentloaded", { timeout: timeout });
+        await page.click(PRODLocator.vgiconMe);
+        await page.click(PRODLocator.vglangDropdown);
+        await page.click(PRODLocator[`vg${langCode}LangOption`]);
+    }
 };
 
 const loginSIT = async (page: Page, accountId: string, pwd: string, timeout: number = 15000) => {
