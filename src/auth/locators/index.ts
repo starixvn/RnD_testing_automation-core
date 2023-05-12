@@ -37,8 +37,9 @@ export enum PRODLocator {
     vgmemberIdInput = "id=Username",
     vgpwdInput = "id=Password",
     vgloginButton = "id=LoginBtn",
-    vgiconMe = "xpath=//*[@class='icon icon-me']",
-    vglangDropdown = "text=Language",
+    vgiconMe = "//*[contains(@class,'icon-me')]",
+    vgiconClose = "//*[@class='survey-dialog__btn-close']",
+    vglangDropdown = "//*[contains(@class,'me-list')]/div[contains(@class,'list__item')][2]/div[1]",
     vgvnLangOption = "text=Tiếng Việt",
     langDropdown = "//div[contains(@class,'c-dropdown--lang')]",
     vnLangOption = "//span[text()='Tiếng Việt']",
@@ -48,6 +49,6 @@ export enum PRODLocator {
 }
 
 export enum GroupCurrencyLocator {
-    currencyGroupDropdown = 'xpath=//*/select[@id="group"]',
-    submitButton = 'xpath=//input[@value="Submit"]',
+    currencyGroupDropdown = '//*/select[@id="group"]',
+    submitButton = '//input[@value="Submit"]',
 }

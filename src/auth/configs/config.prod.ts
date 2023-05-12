@@ -2,7 +2,7 @@ export default {
     memberSite: "https://www.viva88.net/login888.aspx",
     lobbyDomain: "/VendorGame/OpenSabaClub?GameID=",
     vgmemberSite: "http://smart.athena-demo-online.com/",
-    vglobbyDomain: "/VendorGame/OpenSabaClub?GameID=",
+    vglobbyDomain: "#ThirdPartyGame/vid=66&gid=",
     lobbyTimeout: 15000, // 15s
     enabledMsgPack: true,
     pwd: "1234aa",

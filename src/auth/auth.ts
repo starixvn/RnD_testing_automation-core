@@ -85,12 +85,11 @@ const loginMemberSite = async (
     await goToGameLobby(page, config, productId);
 
     if (mustSelectCurrencyGroup(env)) {
-        await selectCurrencyGroup(page, config.groupCurrencyId, timeout);
+        await selectCurrencyGroup(page, timeout);
     }
 };
 
-const selectCurrencyGroup = async (page: Page, groupCurrencyId: string, timeout: number = 15000) => {
-    await page.selectOption(GroupCurrencyLocator.currencyGroupDropdown, { value: groupCurrencyId });
+const selectCurrencyGroup = async (page: Page, timeout: number = 15000) => {
     await page.click(GroupCurrencyLocator.submitButton);
 
     await page.waitForLoadState("domcontentloaded", { timeout });
@@ -114,13 +113,22 @@ const loginPROD = async (page: Page, accountId: string, pwd: string, langCode: s
         await page.click(PRODLocator.langDropdown);
         await page.click(PRODLocator[`${langCode}LangOption`]);
     } else {
+        await page.setViewportSize({
+            width: 340,
+            height: 667,
+        });
         await page.fill(PRODLocator.vgmemberIdInput, accountId);
         await page.fill(PRODLocator.vgpwdInput, pwd);
         await page.click(PRODLocator.vgloginButton);
         await page.waitForLoadState("domcontentloaded", { timeout: timeout });
+        await page.click(PRODLocator.vgiconClose);
         await page.click(PRODLocator.vgiconMe);
         await page.click(PRODLocator.vglangDropdown);
         await page.click(PRODLocator[`vg${langCode}LangOption`]);
+        await page.setViewportSize({
+            width: 1280,
+            height: 720,
+        });
     }
 };
 
@@ -139,7 +147,10 @@ const goToGameLobby = async (page: Page, config: any, productId: string, timeout
 };
 
 const formatGameLobbyUrl = (url: string, lobbyDomain: string, productId: string): string => {
-    return `${url.replace(/\/[Ss]ports/g, "").replace("demo:one23@", "")}${lobbyDomain}${productId}`;
+    const domain = url.split("/");
+    if (url.includes("athena-demo")) {
+        return `http://${domain[2]}/${lobbyDomain}${productId}`;
+    } else return `https://${domain[2]}/${lobbyDomain}${productId}`;
 };
 
 const mustSelectCurrencyGroup = (env: string): boolean => {
