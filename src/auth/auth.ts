@@ -64,6 +64,7 @@ const loginMemberSite = async (
     const timeout = config.lobbyTimeout;
     const memberSiteLink = projectCode === "sc" ? config.memberSite : config.vgmemberSite;
     const pwd = projectCode === "sc" ? config.pwd : config.vgpwd;
+    const lobbyDomain = projectCode === "sc" ? config.lobbyDomain : config.vglobbyDomain;
 
     await page.goto(memberSiteLink);
     console.log("Login Member Site: ", memberSiteLink);
@@ -82,7 +83,7 @@ const loginMemberSite = async (
             await loginSIT(page, playerId, pwd, timeout);
     }
 
-    await goToGameLobby(page, config, productId);
+    await goToGameLobby(page, lobbyDomain, productId);
 
     if (mustSelectCurrencyGroup(env)) {
         await selectCurrencyGroup(page, timeout);
@@ -141,8 +142,8 @@ const loginSIT = async (page: Page, accountId: string, pwd: string, timeout: num
     await page.click(SITLocator.vnLangOption);
 };
 
-const goToGameLobby = async (page: Page, config: any, productId: string, timeout: number = 15000) => {
-    await page.goto(formatGameLobbyUrl(page.url(), config.lobbyDomain, productId));
+const goToGameLobby = async (page: Page, lobbyDomain: string, productId: string, timeout: number = 15000) => {
+    await page.goto(formatGameLobbyUrl(page.url(), lobbyDomain, productId));
     await page.waitForLoadState("domcontentloaded", { timeout });
 };
 
