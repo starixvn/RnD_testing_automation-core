@@ -28,6 +28,7 @@ export enum UATLocator {
     loginButton = "id=LoginBtn",
     langDropdown = "id=Langid",
     vnLangOption = "vi-VN",
+    enLangOption = "en-US",
 }
 
 export enum PRODLocator {
