@@ -5,7 +5,6 @@ import { SlotGameBase } from "./slot-game-base.spec";
 import { CardGameBase } from "./card-game-base.spec";
 import { MultiplayGameOptions, MultiplayGameBase } from "./multiplay-game-base.spec";
 import { BalancedBettingGameBase } from "./balanced-betting-game-base.spec";
-import { GameGuideBase } from "./game-guide-base.spec";
 
 export {
     IBaseOptions,
@@ -16,5 +15,4 @@ export {
     BalancedBettingGameBase,
     SlotGameBase,
     CardGameBase,
-    GameGuideBase
 };
