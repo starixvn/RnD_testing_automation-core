@@ -1,8 +1,8 @@
-import { test, BasePlayer, BaseGame } from "../components";
-import { IBaseOptions } from "./base-options";
-import { GameGuides } from "../game-components/guides/guides.spec";
-import { expect } from "../expects";
-import { LobbyLocator } from "../auth/locators";
+import { test, BasePlayer, BaseGame } from "../../components";
+import { IBaseOptions } from "../../smoke-bases/base-options";
+import { GameGuides } from "./guides.spec";
+import { expect } from "../../expects";
+import { LobbyLocator } from "../../auth/locators";
 
 let langopt = process.env.npm_config_langopt ?? "vn";
 if (langopt === "all"){langopt = "vn"} //if test for all languagues, do test for Vietnamese first

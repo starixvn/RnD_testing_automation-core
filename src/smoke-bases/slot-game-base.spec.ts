@@ -22,6 +22,22 @@ export class SlotGameBase {
         });
     }
 
+    protected betStakeLevelTests() {
+        test("AND stake level should be correct", async () => {
+            // Arrange
+            await this.game.clickLocator("stakeMenu")
+
+            // Act
+            const stakelevelSnapshot = await this.game.capture("imgStakeLevel");
+
+            // Assert
+
+            expect(stakelevelSnapshot.image).toMatchSnapshot(stakelevelSnapshot.name);
+            //Close history
+            await this.game.clickLocator("stakeMenu")
+        });
+    }
+
     protected placeBetAndSettleTests() {
         test("THEN player able to place a bet and settle", async () => {
             // Arrange
@@ -79,6 +95,7 @@ export class SlotGameBase {
 
     protected runScenario() {
         this.inGameOddsTests();
+        this.betStakeLevelTests();
         this.placeBetAndSettleTests();
         this.ticketHistoryTests();
     }

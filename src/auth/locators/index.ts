@@ -39,8 +39,8 @@ export enum PRODLocator {
     vnLangOption = "//span[text()='Tiếng Việt']",
     allLangOption = "//span[text()='Tiếng Việt']", //If languague option = all, do test for Vietnamese first
     enLangOption = "//span[text()='English']",
-    cnLangOption = "//span[text()='繁體中文']",
-    twLangOption = "//span[text()='日本語']",
+    twLangOption = "//span[text()='繁體中文']",
+    jaLangOption = "//span[text()='日本語']",
 }
 
 export enum GroupCurrencyLocator {
