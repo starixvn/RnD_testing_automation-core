@@ -1,3 +1,50 @@
+# [1.3.0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.2.0...v1.3.0) (2023-05-16)
+
+
+### Bug Fixes
+
+* add waiting time after click guide icon ([5aa2857](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/5aa28574e0162ebb3a7ca6fb21e8d7ec1c1ffcfe))
+* alias game base in spec ([b18a3bb](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/b18a3bb698930928b8bf89eab577792465cbc3b4))
+* base game clickToSlotsChoice ([83fef8d](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/83fef8d4205a679c1bc6c543e168f57da607cf52))
+* close popup after snapshot ([405d5d6](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/405d5d6efa365571d532b5df2c991e6dd35cb1ad))
+* config acc ([865d80c](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/865d80c1a3eed3e4b4bb73ef1311570a5b75d804))
+* core game guide ([360a20b](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/360a20b1f7c478133f0f992c7a11cfa3430a92e5))
+* correct imports ([b9459bb](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/b9459bb48de6b9741a058d58a7fdac5bdb1b213a))
+* e2e add timeout after click clear btn payline ([d800360](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/d8003604c8d75938888b9827f609e9089001ec42))
+* e2e guide test ([5aaded5](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/5aaded5f47f311170bccf220a77dc22144320cf6))
+* e2e slot guide test ([65c1371](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/65c13713fb8f10344a807eb2ac7d7c5783d5a207))
+* e2e slot presskey ([2238b87](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/2238b8728064424ea4faf1444bf06478bf9d094f))
+* expose Element and ImageSnapshot ([25a1f63](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/25a1f6330a938855f4d1f81370c6507a89ed8d2f))
+* expose private members ([85a6ea6](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/85a6ea6101a87088f14696e210d8b8abf7aa49dd))
+* expose private members ([12db553](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/12db5531f80bcf1de6825fd69437ea6d4d76112a))
+* game guide ([f1899ee](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/f1899ee717e08280f41b0a1db7bdf60599bf6ece))
+* game guide base ([0411ccb](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/0411ccb6cd45b4691f87db21c86291fe4e11eadb))
+* game guide base ([0c36a27](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/0c36a27fec12e5b12f0b1f22f9cf333711689ff1))
+* game guide base ([ab05b2d](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/ab05b2da792e5664173f19cd25ee2cac122aca17))
+* init game-guides in beforeAll ([5225676](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/52256767d4e6b7db53de8cac49c15df922f605e9))
+* init game-guides in smoke ([69f5de5](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/69f5de5695db75f591466512a70d653a033d291b))
+* minor issue ([2314a4e](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/2314a4ed393f7c4c1cde7a8144dc27ba99231709))
+* order tests of slot game and simplify game guides test ([13ecd01](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/13ecd010a665fbb8a235302820b1180c4b11a193))
+* remove fixme base smoke slots game ([1dfaab5](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/1dfaab53f59eba17d44d562bb823a0ca87489bcb))
+* remove gameguide base in smoke ([e4f6f3f](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/e4f6f3f2dfb1c9965596e1411d339561a2ce34ea))
+* remove hardsleep e2e base classic slot ([71ddecd](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/71ddecd98917fb9b7f26160227c7eb266fea957e))
+* remove redundant functions in e2e slot-game-base.spec ([db208c6](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/db208c6002b73f06e1f2d53ec6b191d94a85928f))
+* remove smoke guidetest ([9878a84](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/9878a84a07a1fa549702a4bf6bc4ec624940f829))
+* remove unused ([9094f20](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/9094f20aefb56f8fb97f624b02ceeb83bc25ea85))
+* separate game guides tests ([8bb9b30](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/8bb9b309000b38023b504f332c52b9c420acf1f9))
+* separate verify guide content to tests ([226d626](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/226d626a99d38d5425a147e3c73af01c10bdc247))
+* uat login ([4664a07](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/4664a07d100cf756b4382368a4768dbbf7bbaa8b))
+* vg auth ([7936651](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/79366515aa365317c6819ea187c85f14b58a425a))
+* vg prod locator ([80bb8d6](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/80bb8d6ea4d29a125525c13d986c537eefde6b6f))
+
+
+### Features
+
+* Add base game guide ([15c10f8](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/15c10f8992c65f6573acbcbf286ffdf188662578))
+* add base-element-locator ([d5195d3](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/d5195d3a77386153d662884dbf9bc43dac894f3d))
+* add vg config local ([7c53acc](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/7c53accc15e3ae5bcf0a65e96d2131400555a7e6))
+* config prod VG ([a95a713](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/a95a71324f0c3f3d17d84639fc0609277d757e57))
+
 # [1.2.0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.1.1...v1.2.0) (2023-05-08)
 
 
