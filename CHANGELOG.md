@@ -1,3 +1,10 @@
+## [1.3.1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.3.0...v1.3.1) (2023-05-16)
+
+
+### Bug Fixes
+
+* vg login ([81e58f1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/81e58f1437c23f7973735d50d9d786981a8f272f))
+
 # [1.3.0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.2.0...v1.3.0) (2023-05-16)
 
 
