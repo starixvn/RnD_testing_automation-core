@@ -4,8 +4,8 @@ import { GameGuides } from "./guides.spec";
 import { expect } from "../../expects";
 import { LobbyLocator } from "../../auth/locators";
 
-let langopt = process.env.npm_config_langopt ?? "vn";
-if (langopt === "all"){langopt = "vn"} //if test for all languagues, do test for Vietnamese first
+let langcode = process.env.npm_config_langcode ?? "vn";
+if (langcode === "all"){langcode = "vn"} //if test for all languagues, do test for Vietnamese first
 
 export class GameGuideBase {
     game: BaseGame;
@@ -18,7 +18,7 @@ export class GameGuideBase {
 start(): void {
     test.beforeEach(async ({}, testInfo) => {
         testInfo.snapshotPath = (name: string) => {
-            const snapshotPath = (langopt === "vn")? this.options.snapshotFolderPath + "-snapshots/" + name : this.options.snapshotFolderPath + "-snapshots/" + langopt+'/'+ name
+            const snapshotPath = (langcode === "vn")? this.options.snapshotFolderPath + "-snapshots/" + name : this.options.snapshotFolderPath + "-snapshots/" + langcode+'/'+ name
             return snapshotPath;
         };
     });
@@ -41,9 +41,9 @@ start(): void {
     protected guideTest(lang:string = "vn") {
         test("AND player could open guide and clarify appropriate content in " + LobbyLocator[`${lang}LangOption`], async () => {
         // Relogin with the next languague
-        if (lang != process.env.npm_config_langopt && lang != "vn"){  //do test for Vietnamese first so don't need to relogin
-            langopt = lang;
-            process.env.npm_config_langopt = lang;
+        if (lang != process.env.npm_config_langcode && lang != "vn"){  //do test for Vietnamese first so don't need to relogin
+            langcode = lang;
+            process.env.npm_config_langcode = lang;
             await this.game.login();
         }
         // Arrange
@@ -62,7 +62,7 @@ start(): void {
 
 
     protected runScenario(){
-        if(process.env.npm_config_langopt == "all" && process.env.npm_config_env?.includes("local")){
+        if(process.env.npm_config_langcode == "all" && process.env.npm_config_env?.includes("local")){
             this.guideTest("vn");
             this.guideTest("en");
             this.guideTest("tw");
@@ -70,13 +70,13 @@ start(): void {
             this.guideTest("th");
             this.guideTest("cn");
         }
-        else if (process.env.npm_config_langopt == "all"){
+        else if (process.env.npm_config_langcode == "all"){
             this.guideTest("vn");
             this.guideTest("en");
             this.guideTest("tw");
         }
         else
-            this.guideTest(langopt);
+            this.guideTest(langcode);
     }
 
 }
