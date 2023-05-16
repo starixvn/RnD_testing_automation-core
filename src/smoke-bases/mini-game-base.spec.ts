@@ -5,8 +5,8 @@ import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
 
 export class MiniGameBase {
-    game: BaseGame;
-    player: BasePlayer;
+    protected game: BaseGame;
+    protected player: BasePlayer;
 
     constructor(protected options: IBaseOptions) {}
 

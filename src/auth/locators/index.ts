@@ -11,7 +11,6 @@ export enum LobbyLocator {
     idLangOption = "id-ID",
     cnLangOption = "zh-CN",
     twLangOption = "zh-TW",
-
 }
 
 export enum SITLocator {
@@ -29,21 +28,29 @@ export enum UATLocator {
     loginButton = "id=LoginBtn",
     langDropdown = "id=Langid",
     vnLangOption = "vi-VN",
+    enLangOption = "en-US",
 }
 
 export enum PRODLocator {
     memberIdInput = "id=txtID",
     pwdInput = "id=txtPW",
     loginButton = "//a[contains(@class,'btn btn')]",
+    vgmemberIdInput = "id=Username",
+    vgpwdInput = "id=Password",
+    vgloginButton = "id=LoginBtn",
+    vgiconMe = "//*[contains(@class,'icon-me')]",
+    vgiconClose = "//*[@class='survey-dialog__btn-close']",
+    vglangDropdown = "//*[contains(@class,'me-list')]/div[contains(@class,'list__item')][2]/div[1]",
+    vgvnLangOption = "text=Tiếng Việt",
     langDropdown = "//div[contains(@class,'c-dropdown--lang')]",
     vnLangOption = "//span[text()='Tiếng Việt']",
     enLangOption = "//span[text()='English']",
     cnLangOption = "//span[text()='繁體中文']",
-    jaLangOption = "//span[text()='日本語']",
+    twLangOption = "//span[text()='日本語']",
 }
 
 export enum GroupCurrencyLocator {
-    currencyGroupDropdown = 'xpath=//*/select[@id="group"]',
-    submitButton = 'xpath=//input[@value="Submit"]',
+    currencyGroupDropdown = '//*/select[@id="group"]',
+    submitButton = '//input[@value="Submit"]',
     specificCheckbox = 'id=groupTypeSpecific'
 }

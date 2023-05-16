@@ -9,8 +9,8 @@ export interface SlotGameOptions extends IBaseOptions {
 }
 
 export class SlotGameBase {
-    game: BaseGame;
-    player: BasePlayer;
+    protected game: BaseGame;
+    protected player: BasePlayer;
 
     constructor(protected options: SlotGameOptions) {}
 
@@ -50,15 +50,20 @@ export class SlotGameBase {
             // Assert
             expect(historyPayload.history.betLogs.length).toBeGreaterThan(0);
             expect(historySnapshot.image).toMatchSnapshot(historySnapshot.name);
+            //Close history
+            await this.game.clickOutSide()
         });
     }
 
     start(): void {
+        test.beforeAll(async ({ baseGame }) => {
+            this.game = baseGame;
+            this.player = new BasePlayer(this.game);
+        });
+
         test.beforeEach(async ({}, testInfo) => {
             testInfo.snapshotPath = (name: string) => {
-                const snapshotPath = this.options.snapshotFolderPath + "-snapshots/" + name;
-
-                return snapshotPath;
+                return `${this.options.snapshotFolderPath}-snapshots/${name}`;
             };
         });
 
@@ -68,11 +73,6 @@ export class SlotGameBase {
         });
 
         test.describe.serial(`${this.options.gameConfiguration.name} Smoke Tests`, () => {
-            test.beforeAll(async ({ baseGame }) => {
-                this.game = baseGame;
-                this.player = new BasePlayer(this.game);
-            });
-
             this.runScenario();
         });
     }

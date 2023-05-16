@@ -12,27 +12,37 @@ export enum Environment {
     PROD = "prod",
 }
 
-export const ssoToGame = async (page: Page, gameId: number, playerId: string, productId: string, env: string): Promise<void> => {
+export const ssoToGame = async (
+    page: Page,
+    gameId: number,
+    playerId: string,
+    productId: string,
+    env: string,
+    projectCode: string
+): Promise<void> => {
     const config = getConfig();
-    const langopt = process.env.npm_config_langopt ?? "vn";
+    const langCode = process.env.npm_config_langCode ?? "vn";
 
     if (playerId === "" || productId === "") {
         throw new Error(`Missing Test Account or ProductId for game id ${gameId}!!!`);
     }
 
     if (env.includes("local")) {
-        const memberSiteLink = `${config.memberSite}?obCustId=${playerId}&balance=20000`;
+        const memberSiteLink =
+            projectCode === "sc"
+                ? `${config.memberSite}?obCustId=${playerId}&balance=20000`
+                : `${config.vgmemberSite}?obCustId=${playerId}&balance=20000`;
         await page.goto(memberSiteLink);
         console.log("Login Local", memberSiteLink);
         await page.click(LobbyLocator.advancelbl);
-        await page.locator(LobbyLocator.langDropdown).selectOption(LobbyLocator[`${langopt}LangOption`]);
+        await page.locator(LobbyLocator.langDropdown).selectOption(LobbyLocator[`${langCode}LangOption`]);
         await page.click(LobbyLocator.tokenBtn);
         await page.waitForTimeout(500);
         const ssoLink = (await page.locator(LobbyLocator.ssoLink).textContent()) ?? "";
 
         await page.goto(`${ssoLink.replace("gameId=0", `gameId=${gameId}`)}`);
     } else {
-        await loginMemberSite(page, config, env, playerId, productId, langopt);
+        await loginMemberSite(page, config, env, playerId, productId, langCode, projectCode);
     }
 };
 
@@ -42,65 +52,112 @@ export const getConfig = (): any => {
     return configs[env];
 };
 
-const loginMemberSite = async (page: Page, config: any, env: string, playerId: string, productId: string, langopt: string) => {
+const loginMemberSite = async (
+    page: Page,
+    config: any,
+    env: string,
+    playerId: string,
+    productId: string,
+    langCode: string,
+    projectCode: string
+) => {
     const timeout = config.lobbyTimeout;
+    const memberSiteLink = projectCode === "sc" ? config.memberSite : config.vgmemberSite;
+    const pwd = projectCode === "sc" ? config.pwd : config.vgpwd;
+    const lobbyDomain = projectCode === "sc" ? config.lobbyDomain : config.vglobbyDomain;
 
-    await page.goto(config.memberSite);
-    console.log("Login Member Site: ", config.memberSite);
+    await page.goto(memberSiteLink);
+    console.log("Login Member Site: ", memberSiteLink);
     await page.waitForLoadState("domcontentloaded", { timeout });
 
     switch (env) {
         case Environment.UAT:
-            await loginUAT(page, playerId, config.pwd, timeout);
+            await loginUAT(page, playerId, pwd, langCode, projectCode, timeout);
             break;
 
         case Environment.PROD:
-            await loginPROD(page, playerId, config.pwd, langopt, timeout);
+            await loginPROD(page, playerId, pwd, langCode, projectCode, timeout);
             break;
 
         default:
-            await loginSIT(page, playerId, config.pwd, timeout);
+            await loginSIT(page, playerId, pwd, timeout);
     }
 
-    await goToGameLobby(page, config, productId);
+    await goToGameLobby(page, lobbyDomain, productId);
 
     if (mustSelectCurrencyGroup(env)) {
-        await selectDefaultCurrencyGroup(page,timeout)
+        await selectCurrencyGroup(page, timeout);
     }
 };
 
-// const selectCurrencyGroup = async (page: Page, groupCurrencyId: string, timeout: number = 15000) => {
-//     //feature-link https://git3.nexdev.net/l1/user-service/-/issues/67
-//     // Only use this function when there has a need to choose a currency other than USD
-//     await page.click(GroupCurrencyLocator.specificCheckbox);
-//     await page.selectOption(GroupCurrencyLocator.currencyGroupDropdown, { value: groupCurrencyId });
-//     await page.click(GroupCurrencyLocator.submitButton);
-
-//     await page.waitForLoadState("domcontentloaded", { timeout });
-// };
-
-const selectDefaultCurrencyGroup = async (page: Page,  timeout: number = 15000) => {
+const selectCurrencyGroup = async (page: Page, timeout: number = 15000) => {
     await page.click(GroupCurrencyLocator.submitButton);
 
     await page.waitForLoadState("domcontentloaded", { timeout });
 };
 
-const loginUAT = async (page: Page, playerId: string, pwd: string, timeout: number = 15000) => {
-    await page.click(UATLocator.loginDiv);
-    await page.selectOption(UATLocator.langDropdown, { value: UATLocator.vnLangOption });
-    await page.fill(UATLocator.memberIdInput, playerId);
-    await page.fill(UATLocator.pwdInput, pwd);
-    await page.click(UATLocator.loginButton);
-    await page.waitForLoadState("domcontentloaded", { timeout });
+const loginUAT = async (page: Page, accountId: string, pwd: string, langCode: string, projectCode: string, timeout: number = 15000) => {
+    if (projectCode === "sc") {
+        await page.click(UATLocator.loginDiv);
+        await page.selectOption(UATLocator.langDropdown, { value: UATLocator.vnLangOption });
+        await page.fill(UATLocator.memberIdInput, accountId);
+        await page.fill(UATLocator.pwdInput, pwd);
+        await page.click(UATLocator.loginButton);
+        await page.waitForLoadState("domcontentloaded", { timeout });
+    } else{
+        await page.setViewportSize({
+            width: 340,
+            height: 667,
+        });
+        await page.selectOption(UATLocator.langDropdown, { value: UATLocator.enLangOption });
+        await page.fill(PRODLocator.vgmemberIdInput, accountId);
+        await page.fill(PRODLocator.vgpwdInput, pwd);
+        await page.click(PRODLocator.vgloginButton);
+        await page.waitForLoadState("domcontentloaded", { timeout: timeout });
+        const isCloseExist = await page.$$(PRODLocator.vgiconClose);
+        if (isCloseExist.length > 0) {
+            await page.click(PRODLocator.vgiconClose);
+        }        
+        await page.click(PRODLocator.vgiconMe);
+        await page.click("text=Language");
+        await page.click(PRODLocator[`vg${langCode}LangOption`]);
+        await page.setViewportSize({
+            width: 1280,
+            height: 720,
+        });
+    }
+
 };
 
-const loginPROD = async (page: Page, accountId: string, pwd: string, langopt: string, timeout: number = 15000) => {
-    await page.fill(PRODLocator.memberIdInput, accountId);
-    await page.fill(PRODLocator.pwdInput, pwd);
-    await page.click(PRODLocator.loginButton);
-    await page.waitForLoadState("domcontentloaded", { timeout: timeout });
-    await page.click(PRODLocator.langDropdown);
-    await page.click(PRODLocator[`${langopt}LangOption`]);
+const loginPROD = async (page: Page, accountId: string, pwd: string, langCode: string, projectCode: string, timeout: number = 15000) => {
+    if (projectCode === "sc") {
+        await page.fill(PRODLocator.memberIdInput, accountId);
+        await page.fill(PRODLocator.pwdInput, pwd);
+        await page.click(PRODLocator.loginButton);
+        await page.waitForLoadState("domcontentloaded", { timeout: timeout });
+        await page.click(PRODLocator.langDropdown);
+        await page.click(PRODLocator[`${langCode}LangOption`]);
+    } else {
+        await page.setViewportSize({
+            width: 340,
+            height: 667,
+        });
+        await page.fill(PRODLocator.vgmemberIdInput, accountId);
+        await page.fill(PRODLocator.vgpwdInput, pwd);
+        await page.click(PRODLocator.vgloginButton);
+        await page.waitForLoadState("domcontentloaded", { timeout: timeout });
+        const isCloseExist = await page.$$(PRODLocator.vgiconClose);
+        if (isCloseExist.length > 0) {
+            await page.click(PRODLocator.vgiconClose);
+        }
+        await page.click(PRODLocator.vgiconMe);
+        await page.click(PRODLocator.vglangDropdown);
+        await page.click(PRODLocator[`vg${langCode}LangOption`]);
+        await page.setViewportSize({
+            width: 1280,
+            height: 720,
+        });
+    }
 };
 
 const loginSIT = async (page: Page, accountId: string, pwd: string, timeout: number = 15000) => {
@@ -112,13 +169,16 @@ const loginSIT = async (page: Page, accountId: string, pwd: string, timeout: num
     await page.click(SITLocator.vnLangOption);
 };
 
-const goToGameLobby = async (page: Page, config: any, productId: string, timeout: number = 15000) => {
-    await page.goto(formatGameLobbyUrl(page.url(), config.lobbyDomain, productId));
+const goToGameLobby = async (page: Page, lobbyDomain: string, productId: string, timeout: number = 15000) => {
+    await page.goto(formatGameLobbyUrl(page.url(), lobbyDomain, productId));
     await page.waitForLoadState("domcontentloaded", { timeout });
 };
 
 const formatGameLobbyUrl = (url: string, lobbyDomain: string, productId: string): string => {
-    return `${url.replace(/\/[Ss]ports/g, "").replace("demo:one23@", "")}${lobbyDomain}${productId}`;
+    const domain = url.split("/");
+    if (url.includes("athena")||url.includes("qawer")) {
+        return `http://${domain[2]}/${lobbyDomain}${productId}`;
+    } else return `https://${domain[2]}/${lobbyDomain}${productId}`;
 };
 
 const mustSelectCurrencyGroup = (env: string): boolean => {
