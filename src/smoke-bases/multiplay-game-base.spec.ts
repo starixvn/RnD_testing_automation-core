@@ -41,7 +41,7 @@ export class MultiplayGameBase {
         test("THEN player able to place a bet and settle", async () => {
             // Arrange
             test.setTimeout(this.options.gameConfiguration.maxTimeout);
-            const bet = { choice: this.options.placeBetChoices[0], amount: 1 };
+            const bet = { choice: this.options.placeBetChoices[0], amount: this.options.placeBetAmount ?? 1 };
             this.game.attachSocketAndCaptureEvent(GameEvent.WinStatus);
 
             // Act
@@ -124,7 +124,7 @@ export class MultiplayGameBase {
             test(`THEN player able to place a bet and settle ${gameOptions.name}`, async () => {
                 // Arrange
                 test.setTimeout(gameOptions.maxTimeout);
-                let bet = { choice: gameOptions.choices[0], amount: 1 };
+                let bet = { choice: gameOptions.choices[0], amount: this.options.placeBetAmount ?? 1 };
                 this.game.attachSocketAndCaptureEvent(GameEvent.WinStatus);
 
                 // Act

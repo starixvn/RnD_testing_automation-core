@@ -164,7 +164,7 @@ export class BaseGame {
 
     async clickToChoice(choice: string): Promise<void> {
         const postfix = this.gameConfiguration.betBoard ? this.BetBoardPostfix : "";
-        await this.clickLocator(`${choice}Choice${postfix}`);
+        await this.clickLocator(`${choice}Choice${postfix}`,0);
     }
 
     async clickToSlotsChoice(choice: string): Promise<void> {
