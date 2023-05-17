@@ -235,7 +235,7 @@ export class BaseGame {
 
     async clickStand(): Promise<void> {
         await this.waitForTimeout(6000);
-        await this.clickLocator("standcard");
+        await this.clickLocator("standcard",0);
     }
 
     async clickSlotsStake(amount: number = 1): Promise<void> {

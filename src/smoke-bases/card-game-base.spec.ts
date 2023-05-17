@@ -47,8 +47,11 @@ export class CardGameBase {
 
             // Act
             const placebetdeal = await this.player.placeBet(bet.choice, bet.amount);
+            const settledResults = await this.player.standCard();
 
             // Assert
+            expect(settledResults.stand.pos).toBe(bet.choice);
+            expect(settledResults.stand.bet).toBe(bet.amount);
             expect(placebetdeal.deal.hands[0].bet).toBe(bet.amount);
             expect(placebetdeal.deal.hands[0].pos).toBe(parseInt(bet.choice));
         });

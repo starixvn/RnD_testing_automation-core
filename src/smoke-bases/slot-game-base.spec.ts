@@ -2,6 +2,11 @@ import { GameEvent } from "../_shared";
 import { test, BasePlayer, BaseGame } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
+const stakeLevel = {
+    stakemenu: "stakeMenu",
+    imgStakeLevel: "imgStakeLevel"
+}
+
 
 export interface SlotGameOptions extends IBaseOptions {
     placeBetChoices: string[];
@@ -19,6 +24,21 @@ export class SlotGameBase {
             await this.game.waitForTimeout(this.options.waitBetTimeout);
             // Assert
             expect(this.game.odds).toStrictEqual(this.options.gameConfiguration.odds);
+        });
+    }
+
+    protected betStakeLevelTests() {
+        test("AND stake level should be correct", async () => {
+            // Arrange
+            await this.game.clickLocator(stakeLevel.stakemenu)
+
+            // Act
+            const stakelevelSnapshot = await this.game.capture(stakeLevel.imgStakeLevel);
+
+            // Assert
+            expect(stakelevelSnapshot.image).toMatchSnapshot(stakelevelSnapshot.name);
+            //Post Act
+            await this.game.clickLocator(stakeLevel.stakemenu)
         });
     }
 
@@ -79,6 +99,7 @@ export class SlotGameBase {
 
     protected runScenario() {
         this.inGameOddsTests();
+        this.betStakeLevelTests()
         this.placeBetAndSettleTests();
         this.ticketHistoryTests();
     }
