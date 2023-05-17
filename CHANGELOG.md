@@ -1,3 +1,10 @@
+## [1.3.2](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.3.1...v1.3.2) (2023-05-17)
+
+
+### Bug Fixes
+
+* remove wait time after select betchoice,error when get ws data after placebet ([8458e31](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/8458e31e0ce17424533874d7ac214e66734035f3))
+
 ## [1.3.1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.3.0...v1.3.1) (2023-05-16)
 
 
