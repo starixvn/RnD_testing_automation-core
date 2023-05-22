@@ -126,8 +126,8 @@ export class SlotGameBase {
         });
 
         test("Verify selected bet stake value and total bet amount", async () => {
-            const betStake = ["BetLevel0_1", "BetLevel1", "BetLevel5"];
-            const totalStake = ["Totalbet0_1", "Totalbet1", "Totalbet5"];
+            const betStake = process.env.npm_config_project === "vg"? ["BetLevel5", "BetLevel10"] : ["BetLevel0_1", "BetLevel0_2"]
+            const totalStake = process.env.npm_config_project === "vg"? ["Totalbet5", "Totalbet10"] : ["Totalbet0_1", "Totalbet0_2"]
             let imgBetStake, imgTotalStake;
             for (let index = 0; index < betStake.length; index++) {
                 await this.player.selectBetStake(`lbl${betStake[index]}`);
@@ -163,7 +163,7 @@ export class SlotGameBase {
             let settledResultsAutoSpin: Array<string> = [];
             const totalAutoSpin = 10;
 
-            const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: CSLocatorNames.lblBetLevel1 };
+            const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: CSLocatorNames.lblBetLevel0_1 };
             await clickTurbo(this.game);
             await this.player.selectPayline(CSLocatorNames.btnPayline1);
             await this.player.selectBetStake(bet.amount);
@@ -234,9 +234,9 @@ export class SlotGameBase {
         test("Verify user able spin by space with turbo mode OFF", async () => {
             //Arrange
             this.game.attachSocketAndCaptureEvent(GameEvent.WinStatus);
-            const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: 1 };
+            const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: this.options.placeBetAmount ?? 1 };
             await this.player.selectPayline(CSLocatorNames.btnPayline1);
-            await this.player.selectBetStake(CSLocatorNames.lblBetLevel1);
+            await this.player.selectBetStake(CSLocatorNames[`lblBetLevel${bet.amount}`]);
 
             //Act
             await this.game.waitForTimeout(timeout)
@@ -250,7 +250,7 @@ export class SlotGameBase {
 
         test("Verify user able spin by enter key with turbo mode OFF", async () => {
             //Arrange
-            let bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: 1 };
+            let bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: this.options.placeBetAmount ?? 1 };
 
             //Act
             await this.game.keyboardPress("Enter");
@@ -263,7 +263,7 @@ export class SlotGameBase {
 
         test("Verify user able spin by space with turbo mode ON", async () => {
             //Arrange
-            const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: 1 };
+            const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: this.options.placeBetAmount ?? 1 };
             await clickTurbo(this.game);
 
             //Act
@@ -281,7 +281,7 @@ export class SlotGameBase {
             // Arrange
             test.setTimeout(this.options.gameConfiguration.maxTimeout);
             const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "numeric", year: "numeric" });
-            const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: 1 };
+            const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: this.options.placeBetAmount ?? 1 };
             let bettime = new Date().toLocaleTimeString("en-US", { hour12: false, hour: "numeric", minute: "numeric" });
             this.game.attachSocketAndCaptureEvent(GameEvent.WinStatus);
 
