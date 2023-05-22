@@ -4,7 +4,8 @@ import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
 const stakeLevel = {
     stakemenu: "stakeMenu",
-    imgStakeLevel: "imgStakeLevel"
+    imgStakeLevelsc: "imgStakeLevelsc",
+    imgStakeLevelvg: "imgStakeLevelvg"
 }
 
 
@@ -27,13 +28,13 @@ export class SlotGameBase {
         });
     }
 
-    protected betStakeLevelTests() {
+    protected betStakeLevelTests(projectCode= "sc") {
         test("AND stake level should be correct", async () => {
             // Arrange
             await this.game.clickLocator(stakeLevel.stakemenu)
 
             // Act
-            const stakelevelSnapshot = await this.game.capture(stakeLevel.imgStakeLevel);
+            const stakelevelSnapshot = await this.game.capture(stakeLevel[`imgStakeLevel${projectCode}`]);
 
             // Assert
             expect(stakelevelSnapshot.image).toMatchSnapshot(stakelevelSnapshot.name);
@@ -99,7 +100,7 @@ export class SlotGameBase {
 
     protected runScenario() {
         this.inGameOddsTests();
-        this.betStakeLevelTests()
+        this.betStakeLevelTests(process.env.npm_config_project)
         this.placeBetAndSettleTests();
         this.ticketHistoryTests();
     }
