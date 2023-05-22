@@ -1,3 +1,10 @@
+## [1.5.1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.0...v1.5.1) (2023-05-22)
+
+
+### Bug Fixes
+
+* e2e slot games bet stake level ([659a92a](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/659a92ac8f59350aa7532b46dba1954ec285a4ba))
+
 # [1.5.0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.4.0...v1.5.0) (2023-05-22)
 
 
