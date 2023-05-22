@@ -1,3 +1,10 @@
+# [1.5.0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.4.0...v1.5.0) (2023-05-22)
+
+
+### Features
+
+* adjust stake level for classic slot games ([a6993c0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/a6993c096efc19599913d6595bc69b0b2c7fb55f))
+
 # [1.4.0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.3.2...v1.4.0) (2023-05-17)
 
 
