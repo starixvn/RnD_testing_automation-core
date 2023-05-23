@@ -126,8 +126,8 @@ export class SlotGameBase {
         });
 
         test("Verify selected bet stake value and total bet amount", async () => {
-            const betStake = process.env.npm_config_project === "vg"? ["BetLevel5", "BetLevel10"] : ["BetLevel0_1", "BetLevel0_2"]
-            const totalStake = process.env.npm_config_project === "vg"? ["Totalbet5", "Totalbet10"] : ["Totalbet0_1", "Totalbet0_2"]
+            const betStake = process.env.npm_config_project === "l2"? ["BetLevel5", "BetLevel10"] : ["BetLevel0_1", "BetLevel0_2"]
+            const totalStake = process.env.npm_config_project === "l2"? ["Totalbet5", "Totalbet10"] : ["Totalbet0_1", "Totalbet0_2"]
             let imgBetStake, imgTotalStake;
             for (let index = 0; index < betStake.length; index++) {
                 await this.player.selectBetStake(`lbl${betStake[index]}`);

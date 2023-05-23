@@ -36,13 +36,13 @@ export enum PRODLocator {
     memberIdInput = "id=txtID",
     pwdInput = "id=txtPW",
     loginButton = "//a[contains(@class,'btn btn')]",
-    vgmemberIdInput = "id=Username",
-    vgpwdInput = "id=Password",
-    vgloginButton = "id=LoginBtn",
-    vgiconMe = "//*[contains(@class,'icon-me')]",
-    vgiconClose = "//*[@class='survey-dialog__btn-close']",
-    vglangDropdown = "//*[contains(@class,'me-list')]/div[contains(@class,'list__item')][2]/div[1]",
-    vgvnLangOption = "text=Tiếng Việt",
+    l2memberIdInput = "id=Username",
+    l2pwdInput = "id=Password",
+    l2loginButton = "id=LoginBtn",
+    l2iconMe = "//*[contains(@class,'icon-me')]",
+    l2iconClose = "//*[@class='survey-dialog__btn-close']",
+    l2langDropdown = "//*[contains(@class,'me-list')]/div[contains(@class,'list__item')][2]/div[1]",
+    l2vnLangOption = "text=Tiếng Việt",
     langDropdown = "//div[contains(@class,'c-dropdown--lang')]",
     vnLangOption = "//span[text()='Tiếng Việt']",
     allLangOption = "//span[text()='Tiếng Việt']", //If languague option = all, do test for Vietnamese first
@@ -54,5 +54,5 @@ export enum PRODLocator {
 export enum GroupCurrencyLocator {
     currencyGroupDropdown = '//*/select[@id="group"]',
     submitButton = '//input[@value="Submit"]',
-    specificCheckbox = 'id=groupTypeSpecific'
+    specificCheckbox = "id=groupTypeSpecific",
 }

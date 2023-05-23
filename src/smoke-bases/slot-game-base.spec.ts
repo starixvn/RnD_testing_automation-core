@@ -4,8 +4,8 @@ import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
 const stakeLevel = {
     stakemenu: "stakeMenu",
-    imgStakeLevelsc: "imgStakeLevelsc",
-    imgStakeLevelvg: "imgStakeLevelvg"
+    imgStakeLevell1: "imgStakeLevell1",
+    imgStakeLevell2: "imgStakeLevell2"
 }
 
 
@@ -28,7 +28,7 @@ export class SlotGameBase {
         });
     }
 
-    protected betStakeLevelTests(projectCode= "sc") {
+    protected betStakeLevelTests(projectCode= "l1") {
         test("AND stake level should be correct", async () => {
             // Arrange
             await this.game.clickLocator(stakeLevel.stakemenu)

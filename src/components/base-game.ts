@@ -29,12 +29,12 @@ export class BaseGame {
 
     async login() {
         const env = (process.env.npm_config_env ?? "local").toLowerCase();
-        const projectCode = process.env.npm_config_project ?? "sc";
+        const projectCode = process.env.npm_config_project ?? "l1";
         let account: string;
         if (env.includes("local")) {
             account = this.gameConfiguration.accounts[env];
         } else {
-            account = projectCode === "sc" ? this.gameConfiguration.accounts[env] : this.gameConfiguration.accounts[`vg${env}`];
+            account = projectCode === "l1" ? this.gameConfiguration.accounts[env] : this.gameConfiguration.accounts[`l2${env}`];
         }
         await ssoToGame(this.page, this.gameConfiguration.id, account, this.gameConfiguration.productId, env, projectCode);
         this.msgpack = getConfig().enabledMsgPack;
@@ -164,7 +164,7 @@ export class BaseGame {
 
     async clickToChoice(choice: string): Promise<void> {
         const postfix = this.gameConfiguration.betBoard ? this.BetBoardPostfix : "";
-        await this.clickLocator(`${choice}Choice${postfix}`,0);
+        await this.clickLocator(`${choice}Choice${postfix}`, 0);
     }
 
     async clickToSlotsChoice(choice: string): Promise<void> {
@@ -235,7 +235,7 @@ export class BaseGame {
 
     async clickStand(): Promise<void> {
         await this.waitForTimeout(6000);
-        await this.clickLocator("standcard",0);
+        await this.clickLocator("standcard", 0);
     }
 
     async clickSlotsStake(amount: number = 1): Promise<void> {
