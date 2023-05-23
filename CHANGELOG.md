@@ -1,3 +1,10 @@
+## [1.5.2](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.1...v1.5.2) (2023-05-23)
+
+
+### Bug Fixes
+
+* change project code to be consistent with trigger variable stake name: l1, l2 ([0e862db](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/0e862dbd0bf2cdebe859d4da88e85c915f52239f))
+
 ## [1.5.1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.0...v1.5.1) (2023-05-22)
 
 
