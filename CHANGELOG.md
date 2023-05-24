@@ -1,3 +1,10 @@
+## [1.5.3](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.2...v1.5.3) (2023-05-24)
+
+
+### Bug Fixes
+
+* set waitting time after click history icon ([9aee2a1](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/9aee2a12db789d77e00293e012edb1fefc063c74))
+
 ## [1.5.2](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.1...v1.5.2) (2023-05-23)
 
 
