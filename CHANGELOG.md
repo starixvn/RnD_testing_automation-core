@@ -1,3 +1,10 @@
+## [1.5.4](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.3...v1.5.4) (2023-05-25)
+
+
+### Bug Fixes
+
+* handle case refund series games baccarat ([f898f49](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/f898f494e05accc5b77d3740fdb3ff629e67e146))
+
 ## [1.5.3](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.2...v1.5.3) (2023-05-24)
 
 
