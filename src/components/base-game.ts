@@ -123,7 +123,8 @@ export class BaseGame {
         let settledResults = {
             settlementResult: message?.finish?.settlementResult,
             odds: this.odds,
-        };
+            winStatus: typeof winningByChoice == "object" ? winningByChoice.status.win: "" ,
+            };
         if (this.gameConfiguration.slotsgame) {
             settledResults["winAmount"] = message?.finish?.betWin ?? 0;
         } else {
@@ -170,7 +171,7 @@ export class BaseGame {
     async clickToSlotsChoice(choice: string): Promise<void> {
         await this.clickLocator("choiceMenu", 2000);
         await this.clickLocator("clearChoices", 1500);
-        await this.clickLocator(`${choice}Choice`, 1000);
+        await this.clickLocator(`${choice}Choice`, 2000);
         await this.clickLocator("submitPayline", 1000);
     }
 

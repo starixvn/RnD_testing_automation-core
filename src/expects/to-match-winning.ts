@@ -1,5 +1,14 @@
 const toMatchWinning = (bet: any, settledResult: any) => {
-    const odds = settledResult.settlementResult[bet.choice] ? settledResult.odds[bet.choice] : 0;
+    let odds: number;
+
+    if (settledResult.winStatus) {
+        odds = settledResult.settlementResult[bet.choice] ? settledResult.odds[bet.choice] : 1;
+    } else if(!settledResult.winStatus) {
+        odds = settledResult.settlementResult[bet.choice] ? settledResult.odds[bet.choice] : 0;
+    }
+    else{
+        odds = 0;
+    }
     const expectedAmount = bet.amount * odds;
 
     if (expectedAmount === settledResult.winAmount) {
