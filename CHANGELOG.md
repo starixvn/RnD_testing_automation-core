@@ -1,3 +1,10 @@
+## [1.5.6](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.5...v1.5.6) (2023-05-30)
+
+
+### Bug Fixes
+
+* update l2 uat domain ([a5d0cf8](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/a5d0cf820993e6e3a79ec8352fc69b127fa36c58))
+
 ## [1.5.5](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.4...v1.5.5) (2023-05-30)
 
 
