@@ -30,6 +30,7 @@ export enum UATLocator {
     langDropdown = "id=Langid",
     vnLangOption = "vi-VN",
     enLangOption = "en-US",
+    l2langDropdown = "//*/div[@class='c-me-list']/div[2]/div[1]"
 }
 
 export enum PRODLocator {

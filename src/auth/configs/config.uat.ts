@@ -1,7 +1,7 @@
 export default {
     memberSite: "http://qawer.viva88.com:5171",
     lobbyDomain: "#ThirdPartyGame/vid=42&gid=",
-    l2memberSite: "http://qbm005.athena000.com/",
+    l2memberSite: "http://qasb3.athena000.com:50006/",
     l2lobbyDomain: "#ThirdPartyGame/vid=66&gid=",
     lobbyTimeout: 15000, // 15s
     enabledMsgPack: true,

@@ -119,7 +119,7 @@ const loginUAT = async (page: Page, accountId: string, pwd: string, langCode: st
             await page.click(PRODLocator.l2iconClose);
         }
         await page.click(PRODLocator.l2iconMe);
-        await page.click("text=Language");
+        await page.click(UATLocator.l2langDropdown);
         await page.click(PRODLocator[`l2${langCode}LangOption`]);
         await page.setViewportSize({
             width: 1280,
