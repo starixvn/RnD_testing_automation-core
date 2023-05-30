@@ -1,3 +1,10 @@
+## [1.5.5](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.4...v1.5.5) (2023-05-30)
+
+
+### Bug Fixes
+
+* login prod l2, handle case survey form appears ([665cfa8](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/665cfa8369cadd1ab7503016b768decbc720664f))
+
 ## [1.5.4](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.3...v1.5.4) (2023-05-25)
 
 
