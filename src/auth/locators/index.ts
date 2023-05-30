@@ -40,7 +40,7 @@ export enum PRODLocator {
     l2pwdInput = "id=Password",
     l2loginButton = "id=LoginBtn",
     l2iconMe = "//*[contains(@class,'icon-me')]",
-    l2iconClose = "//*[@class='survey-dialog__btn-close']",
+    l2iconClose = "//*[@class='survey-dialog__icon-close']",
     l2langDropdown = "//*[contains(@class,'me-list')]/div[contains(@class,'list__item')][2]/div[1]",
     l2vnLangOption = "text=Tiếng Việt",
     langDropdown = "//div[contains(@class,'c-dropdown--lang')]",

@@ -166,6 +166,7 @@ export class SlotGameBase {
             const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: CSLocatorNames.lblBetLevel0_1 };
             await clickTurbo(this.game);
             await this.player.selectPayline(CSLocatorNames.btnPayline1);
+            await this.game.waitForTimeout(timeout);
             await this.player.selectBetStake(bet.amount);
 
             // Act
@@ -236,6 +237,7 @@ export class SlotGameBase {
             this.game.attachSocketAndCaptureEvent(GameEvent.WinStatus);
             const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: this.options.placeBetAmount ?? 1 };
             await this.player.selectPayline(CSLocatorNames.btnPayline1);
+            await this.game.waitForTimeout(timeout);
             await this.player.selectBetStake(CSLocatorNames[`lblBetLevel${bet.amount}`]);
 
             //Act

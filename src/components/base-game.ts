@@ -8,7 +8,7 @@ import { Tesseract } from "tesseract.ts";
 import { CSLocatorNames } from "./base-classic-slot-locator";
 
 export class BaseGame {
-    readonly LobbyTimeout: number = 60000;
+    readonly LobbyTimeout: number = 65000;
     readonly BetBoardPostfix: string = "BetBoard";
 
     readonly page: Page;

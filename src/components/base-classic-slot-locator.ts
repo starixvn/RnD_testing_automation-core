@@ -73,6 +73,8 @@ export const ClassicSlotLocators = [
     new ImageLocator(CSLocatorNames.cboBetLevel, 305, 620, 80, 50),
     new ImageLocator(CSLocatorNames.imgBetLevel0_1, 305, 620, 80, 50),
     new ImageLocator(CSLocatorNames.imgBetLevel0_2, 305, 620, 80, 50),
+    new ImageLocator(CSLocatorNames.imgBetLevel5, 305, 620, 80, 50),
+    new ImageLocator(CSLocatorNames.imgBetLevel10, 305, 620, 80, 50),
     new ImageLocator(CSLocatorNames.imgBetLevel1, 305, 620, 80, 50),
     new ImageLocator(CSLocatorNames.lblBetLevel0_1, 183, 547, 100, 55),
     new ImageLocator(CSLocatorNames.lblBetLevel0_2, 292, 547, 100, 55),
