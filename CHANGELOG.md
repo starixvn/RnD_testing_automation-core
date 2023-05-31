@@ -1,3 +1,10 @@
+## [1.5.7](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.6...v1.5.7) (2023-05-31)
+
+
+### Bug Fixes
+
+* adjust the timeout according to the specific environment ([b754a29](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/b754a29127e53c065dda218317a0b0e371709ccc))
+
 ## [1.5.6](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.5...v1.5.6) (2023-05-30)
 
 
