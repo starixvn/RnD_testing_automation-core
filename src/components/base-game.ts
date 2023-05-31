@@ -8,7 +8,7 @@ import { Tesseract } from "tesseract.ts";
 import { CSLocatorNames } from "./base-classic-slot-locator";
 
 export class BaseGame {
-    readonly LobbyTimeout: number = 65000;
+    readonly LobbyTimeout: number = 35000;
     readonly BetBoardPostfix: string = "BetBoard";
 
     readonly page: Page;
@@ -58,8 +58,13 @@ export class BaseGame {
                 });
             }
         });
-        await this.logConsole();
-        await this.page.waitForTimeout(this.LobbyTimeout);
+        // await this.logConsole();
+        if (!env.includes("local")) {
+            await this.page.waitForTimeout(this.LobbyTimeout*2);
+        }
+        else{
+            await this.page.waitForTimeout(this.LobbyTimeout);
+        }
     }
 
     async getTextLocator(locatorName: string) {

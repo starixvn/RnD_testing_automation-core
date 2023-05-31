@@ -145,7 +145,7 @@ const loginPROD = async (page: Page, accountId: string, pwd: string, langCode: s
         await page.fill(PRODLocator.l2pwdInput, pwd);
         await page.click(PRODLocator.l2loginButton);
         await page.waitForLoadState("domcontentloaded", { timeout: timeout });
-        await page.waitForTimeout(3000)
+        await page.waitForTimeout(5000)
         const isCloseExist = await page.$$(PRODLocator.l2iconClose);
         if (isCloseExist.length > 0) {
             await page.click(PRODLocator.l2iconClose);
