@@ -1,3 +1,10 @@
+## [1.5.8](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.7...v1.5.8) (2023-05-31)
+
+
+### Bug Fixes
+
+* uncomment write log ([759a847](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/759a8472b0815a1ad045d4817405955b92f2fc26))
+
 ## [1.5.7](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.6...v1.5.7) (2023-05-31)
 
 
