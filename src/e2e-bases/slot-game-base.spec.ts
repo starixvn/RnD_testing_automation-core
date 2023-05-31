@@ -237,11 +237,10 @@ export class SlotGameBase {
             this.game.attachSocketAndCaptureEvent(GameEvent.WinStatus);
             const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: this.options.placeBetAmount ?? 1 };
             await this.player.selectPayline(CSLocatorNames.btnPayline1);
-            await this.game.waitForTimeout(timeout);
             await this.player.selectBetStake(CSLocatorNames[`lblBetLevel${bet.amount}`]);
+            await this.game.waitForTimeout(timeout)
 
             //Act
-            await this.game.waitForTimeout(timeout)
             await this.game.keyboardPress("Space");
             const settledResults = await this.game.waitForSettlement();
 

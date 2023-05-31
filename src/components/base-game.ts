@@ -58,11 +58,11 @@ export class BaseGame {
                 });
             }
         });
-        // await this.logConsole();
+        await this.logConsole();
+
         if (!env.includes("local")) {
-            await this.page.waitForTimeout(this.LobbyTimeout*2);
-        }
-        else{
+            await this.page.waitForTimeout(this.LobbyTimeout * 2);
+        } else {
             await this.page.waitForTimeout(this.LobbyTimeout);
         }
     }
@@ -128,8 +128,8 @@ export class BaseGame {
         let settledResults = {
             settlementResult: message?.finish?.settlementResult,
             odds: this.odds,
-            winStatus: typeof winningByChoice == "object" ? winningByChoice.status.win: "" ,
-            };
+            winStatus: typeof winningByChoice == "object" ? winningByChoice.status.win : "",
+        };
         if (this.gameConfiguration.slotsgame) {
             settledResults["winAmount"] = message?.finish?.betWin ?? 0;
         } else {
