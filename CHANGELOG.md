@@ -1,3 +1,10 @@
+## [1.5.9](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.8...v1.5.9) (2023-06-05)
+
+
+### Bug Fixes
+
+* remove handle survey popup on L2 ([2ba1210](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/2ba1210f32591057d86689951882416f3536c3e1))
+
 ## [1.5.8](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.7...v1.5.8) (2023-05-31)
 
 
