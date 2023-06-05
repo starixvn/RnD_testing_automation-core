@@ -144,7 +144,12 @@ const loginPROD = async (page: Page, accountId: string, pwd: string, langCode: s
         await page.fill(PRODLocator.l2memberIdInput, accountId);
         await page.fill(PRODLocator.l2pwdInput, pwd);
         await page.click(PRODLocator.l2loginButton);
-        await page.waitForLoadState("domcontentloaded", { timeout: timeout });   
+        await page.waitForLoadState("domcontentloaded", { timeout: timeout });
+        await page.waitForTimeout(5000)
+        const iconSurvey = await page.$$(PRODLocator.l2iconClose);
+        if (iconSurvey.length) {
+            await page.click(PRODLocator.l2iconClose)
+        }
         await page.setViewportSize({
             width: 1280,
             height: 720,
