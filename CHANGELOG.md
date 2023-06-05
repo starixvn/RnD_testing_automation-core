@@ -1,3 +1,10 @@
+## [1.5.10](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.9...v1.5.10) (2023-06-05)
+
+
+### Bug Fixes
+
+* click survey icon if existed ([34f7ae7](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/34f7ae727bb6c21f4b97814da1b24dce26b254ad))
+
 ## [1.5.9](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.8...v1.5.9) (2023-06-05)
 
 
