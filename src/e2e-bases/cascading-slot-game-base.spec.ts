@@ -3,7 +3,6 @@ import { test, BasePlayer, BaseGame } from "../components";
 import { expect } from "../expects";
 import { IBaseOptions } from "./base-options";
 import { CascadingSlotLocatorNames } from "../components/base-cascading-slot-locator";
-import { SlotGameBase } from "../smoke-bases";
 import { GameGuides } from "../game-components/guides/guides.spec";
 
 const timeout = 3000;
