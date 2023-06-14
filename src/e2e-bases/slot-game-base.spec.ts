@@ -412,7 +412,7 @@ const getDataFistRowHistory = async (game: BaseGame, elementname: string = CSLoc
     if (tempdata != null) {
         let data = tempdata.split(" ");
         return {
-            betdate: data[0].toString(),
+            betdate: data[0].toString().replace(/[^0-9.]/g, ""),
             bet: data[1].toString().replace(/[^0-9.]/g, ""),
             line: data[2].toString().replace(/[^0-9.]/g, ""),
             totalbet: data[3].toString().replace(/[^0-9.]/g, ""),
@@ -430,7 +430,7 @@ const getDataFistRowHistory = async (game: BaseGame, elementname: string = CSLoc
 };
 
 const openRoundDetail = async (game: BaseGame) => {
-    await game.clickLocator(CSLocatorNames.locHistoryRoundId, 1000);
+    await game.clickLocator(CSLocatorNames.locHistoryRoundId, 1500);
 };
 
 export interface Expectdata {
