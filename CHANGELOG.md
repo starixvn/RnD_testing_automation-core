@@ -1,3 +1,10 @@
+## [1.5.11](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.10...v1.5.11) (2023-06-14)
+
+
+### Bug Fixes
+
+* e2e classic slots ([e5590f0](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/e5590f04737edfa210eeaf663d74342cb8b96ec1))
+
 ## [1.5.10](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.9...v1.5.10) (2023-06-05)
 
 
