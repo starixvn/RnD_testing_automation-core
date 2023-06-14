@@ -1,3 +1,10 @@
+## [1.5.12](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.11...v1.5.12) (2023-06-14)
+
+
+### Bug Fixes
+
+* e2e export text round id ([42dc41e](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/42dc41e0613198a2ea1757c7565c33fd5ebcb08a))
+
 ## [1.5.11](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.10...v1.5.11) (2023-06-14)
 
 
