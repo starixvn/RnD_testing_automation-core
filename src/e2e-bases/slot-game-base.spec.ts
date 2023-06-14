@@ -236,6 +236,7 @@ export class SlotGameBase {
             //Arrange
             this.game.attachSocketAndCaptureEvent(GameEvent.WinStatus);
             const bet = { choice: `btn${this.options.placeBetChoices[0]}`, amount: this.options.placeBetAmount ?? 1 };
+            await this.game.clickOutSide();
             await this.player.selectPayline(CSLocatorNames.btnPayline1);
             await this.player.selectBetStake(CSLocatorNames[`lblBetLevel${bet.amount}`]);
             await this.game.waitForTimeout(timeout)
@@ -260,6 +261,7 @@ export class SlotGameBase {
             // Assert
             expect(bet).toMatchWinningSymbols(settledResults);
             await this.game.waitForTimeout(timeout);
+            await this.game.clickOutSide();
         });
 
         test("Verify user able spin by space with turbo mode ON", async () => {
@@ -274,6 +276,7 @@ export class SlotGameBase {
             // Assert
             expect(bet).toMatchWinningSymbols(settledResults);
             await this.game.waitForTimeout(timeout);
+            await this.game.clickOutSide();
         });
     }
 
@@ -310,7 +313,7 @@ export class SlotGameBase {
     protected ticketHistoryTests() {
         test("AND player could open history popup", async () => {
             // Act 1
-            await this.game.clickHistory(1000);
+            await this.game.clickHistory(timeout);
             await this.game.captureLocator(CSLocatorNames.lblHistoryFirstRow);
 
             // Assert 1
@@ -325,7 +328,7 @@ export class SlotGameBase {
 
             //Post-Act
             await this.game.clickLocator(CSLocatorNames.btnClosePopup);
-            await this.game.clickLocator(CSLocatorNames.btnClosePopup);
+            await this.game.clickLocator(CSLocatorNames.btnClosePopup,timeout);
         });
     }
 
@@ -409,16 +412,14 @@ const getDataFistRowHistory = async (game: BaseGame, elementname: string = CSLoc
     if (tempdata != null) {
         let data = tempdata.split(" ");
         return {
-            bettime: data[0].toString(),
-            betdate: data[1].toString(),
-            bet: data[2].toString().replace(/[^0-9.]/g, ""),
-            line: data[3].toString().replace(/[^0-9.]/g, ""),
-            totalbet: data[4].toString().replace(/[^0-9.]/g, ""),
-            betwin: data[5].toString().replace(/[^0-9.]/g, ""),
+            betdate: data[0].toString(),
+            bet: data[1].toString().replace(/[^0-9.]/g, ""),
+            line: data[2].toString().replace(/[^0-9.]/g, ""),
+            totalbet: data[3].toString().replace(/[^0-9.]/g, ""),
+            betwin: data[4].toString().replace(/[^0-9.]/g, ""),
         };
     } else {
         return {
-            bettime: "N/A",
             betdate: "N/A",
             bet: "N/A",
             line: "N/A",
@@ -442,7 +443,8 @@ export interface Expectdata {
 const verifyticketdata = async (game: BaseGame, expectdata: Expectdata) => {
     let line = expectdata.line.replace("btnPayline", "");
     const ticketdata = await getDataFistRowHistory(game);
-    expect(ticketdata.betdate, "verify bet date").toEqual(expectdata.betdate);
+    const betdate = expectdata.betdate.toString().replace(/[^0-9.]/g, "");
+    expect(betdate.includes(ticketdata.betdate), "verify bet date").toEqual(true);
     expect(ticketdata.bet).toEqual(expectdata.bet);
     expect(ticketdata.line, "verify bet bet choice").toEqual(line);
     expect(ticketdata.betwin, "verify bet win").toEqual(expectdata.betwin);

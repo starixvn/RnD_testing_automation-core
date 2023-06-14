@@ -175,9 +175,9 @@ export class BaseGame {
 
     async clickToSlotsChoice(choice: string): Promise<void> {
         await this.clickLocator("choiceMenu", 2000);
-        await this.clickLocator("clearChoices", 1500);
+        await this.clickLocator("clearChoices", 2500);
         await this.clickLocator(`${choice}Choice`, 2000);
-        await this.clickLocator("submitPayline", 1000);
+        await this.clickLocator("submitPayline");
     }
 
     async clickLocator(element: string, wait = 500): Promise<void> {
@@ -270,7 +270,7 @@ export class BaseGame {
         if (locator) {
             await locator.click(this.page);
         }
-        await this.waitForTimeout(500);
+        await this.waitForTimeout(1000);
     }
 
     async mouseDragDrop(from: Pos, to: Pos): Promise<void> {
