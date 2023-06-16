@@ -8,7 +8,7 @@ import { Tesseract } from "tesseract.ts";
 import { CSLocatorNames } from "./base-classic-slot-locator";
 
 export class BaseGame {
-    readonly LobbyTimeout: number = 35000;
+    readonly LobbyTimeout: number = 38000;
     readonly BetBoardPostfix: string = "BetBoard";
 
     readonly page: Page;
@@ -176,7 +176,7 @@ export class BaseGame {
     async clickToSlotsChoice(choice: string): Promise<void> {
         await this.clickLocator("choiceMenu", 2000);
         await this.clickLocator("clearChoices", 2500);
-        await this.clickLocator(`${choice}Choice`, 2000);
+        await this.clickLocator(`${choice}Choice`, 2500);
         await this.clickLocator("submitPayline");
     }
 
