@@ -1,3 +1,10 @@
+## [1.5.13](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.12...v1.5.13) (2023-06-16)
+
+
+### Bug Fixes
+
+* increase timeout when select slot payline ([8c55ea4](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/commit/8c55ea46491bc174e5e09265b4fd8cdf6468852c))
+
 ## [1.5.12](https://git3.nexdev.net/l1/ui-automation-tests/packages/sc-automation-core/compare/v1.5.11...v1.5.12) (2023-06-14)
 
 
